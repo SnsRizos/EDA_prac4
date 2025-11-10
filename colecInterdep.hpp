@@ -1,7 +1,6 @@
 /* Mijayl Mandzyak Melnyk 935521 Hector Manzano Miranda 926092*/
 #ifndef COLECINTEDEP_HPP
 #define COLECINTEDEP_HPP
-//PUTO
 // PREDECLARACION DEL TAD GENERICO colecInterdep (inicio INTERFAZ)
 
 /* El TAD GENERICO  colecInterdep es una colección ordenada de elementos cuyo dominio de valores seran de datos
