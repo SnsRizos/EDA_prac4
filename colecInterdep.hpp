@@ -233,21 +233,20 @@ struct colecInterdep{
 	constante. Todas las funciones del iterador tienen coste constante.
 	Igualmente, el coste en memoria de esta implementación será O(N).
 	*/
-	struct Celda{
+	struct Arbol{
 	I ident;
 	V valor;
-	Celda* dep;
+	Arbol* dep;
 	int numDepend;
-	Celda* sig;
-	Celda* izq;
-	Celda* der;
+	Arbol* izq;
+	Arbol* der;
 };
 
 
-	Celda* prim;
-	int tam;
+	Arbol* raiz;
+	int altura;
     //CAMPOS ITERADOR
-	Celda* itr;
+	Arbol* itr;
 };
 	
 
