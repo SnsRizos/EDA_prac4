@@ -240,6 +240,8 @@ struct colecInterdep{
 	Celda* dep;
 	int numDepend;
 	Celda* sig;
+	Celda* izq;
+	Celda* der;
 };
 
 
