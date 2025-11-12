@@ -184,7 +184,7 @@ template<typename I,typename V> bool avanza(colecInterdep<I,V>& c);
 
 
 
-// DECLARACION DEL TAD GENERICO agrupacion
+// DECLARACION DEL TAD GENERICO colecInterdep
 
 template<typename I,typename V>
 struct colecInterdep{
