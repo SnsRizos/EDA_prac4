@@ -257,6 +257,7 @@ struct colecInterdep{
 
 	//AUX
 	friend bool esta<I,V>(const I& id, Nodo*& c);
+	friend bool buscar<I,V>(colecInterdep<I,V>& c, const I& id, Nodo*& pBuscado);
 	friend bool encontrar<I,V>(Nodo* c, const I& id, Nodo*& pBuscado);
 	friend bool estaDependiente<I,V>(const I& id, Nodo* c);
 	friend bool estaIndependiente<I,V>(const I& id, Nodo* c);
