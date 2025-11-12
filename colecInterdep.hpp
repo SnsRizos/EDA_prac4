@@ -291,7 +291,7 @@ bool existe(const I& id, colecInterdep<I,V>& c){
 }
 
 
-
+template<typename I,typename V>
 bool esta(const I& id, Arbol*& c){
 	if(c == nullptr){
 		return false;
@@ -320,6 +320,7 @@ bool existeDependiente(const I& id, colecInterdep<I,V>& c){
 	return estaDependiente(id,c.raiz);
 }
 
+template<typename I,typename V>
 bool estaDependiente(const I& id, Arbol* c){
 	if(c == nullptr){
 		return false;
@@ -354,6 +355,8 @@ bool existeIndependiente(const I& id, colecInterdep<I,V>& c){
 	return estaIndependiente(id,c.raiz);
 }
 
+
+template<typename I,typename V>
 bool estaIndependiente(const I& id, Arbol* c){
 	if(c == nullptr){
 		return false;
@@ -377,7 +380,7 @@ bool estaIndependiente(const I& id, Arbol* c){
 }
 
 
-
+template<typename I,typename V>
 bool encontrar(Arbol* c, const I& id, Arbol*& pBuscado){
 	if(c == nullptr){
 		return false;
@@ -396,6 +399,8 @@ bool encontrar(Arbol* c, const I& id, Arbol*& pBuscado){
 	}
 }
 
+
+template<typename I,typename V>
 bool buscar(colecInterdep<I,V>& c, const I& id, Arbol*& pBuscado) {
     return encontrar(c.raiz, id, pBuscado); 
 }
