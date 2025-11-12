@@ -216,37 +216,38 @@ struct colecInterdep{
 
     
 
-  private: /* En esta implementación la colección se representará en memoria dinámica como una lista enlazada de Arbols ordenada 
+  private: /* En esta implementación la colección se representará en memoria dinámica como una lista enlazada de Nodos ordenada 
   			* por el identificdor de los elementos de menor a mayor con: 
-	        * - el puntero.raiz: apuntando a la Arbol que contiene el.raizer elemento de la colección, será nullptr si la colección
+	        * - el puntero.raiz: apuntando a la Nodo que contiene el.raizer elemento de la colección, será nullptr si la colección
 			* está vacía
 		    * - el campo tam: mantendrá calculado el tamaño o número de elementos en la colección, será 0 si la pila está vacía 
 		    * - el puntero itr: se utilizará para mantener el estado del iterador, y únicamente será utilizado por las operaciones 
 			* iniciarIterador, existeSiguiente, siguienteIdent, siguienteVal, siguienteDependiente, siguienteSuperior, siguienteNumDependientes
 			* y avanza.
-			* Cada Arbol contendrá un identificador (en su campo ident), un valor (en su campo valor), apuntará con su puntero dep 
+			* Cada Nodo contendrá un identificador (en su campo ident), un valor (en su campo valor), apuntará con su puntero dep 
 			* al elemento del que es dependiente o a nullptr si es independiente, un entero que almacenará el número de elementos 
-			* que dependen de este y apuntará con su puntero sig a la próxima Arbol que contenga el.raizer elemento con un identificador
+			* que dependen de este y apuntará con su puntero sig a la próxima Nodo que contenga el.raizer elemento con un identificador
 			* mayor a este o a nullptr si este es el elemento con mayor identificador.
 	   
     Todas las funciones de la colcección tienen coste lineal O(n) salvo crear, tamanyo y esVacia que tienen coste
 	constante. Todas las funciones del iterador tienen coste constante.
 	Igualmente, el coste en memoria de esta implementación será O(N).
 	*/
-	struct Arbol{
-	I ident;
-	V valor;
-	Arbol* dep;
-	int numDepend;
-	Arbol* izq;
-	Arbol* der;
-};
+	
+	struct Nodo{
+		I ident;
+		V valor;
+		Nodo* dep;
+		int numDepend;
+		Nodo* izq;
+		Nodo* der;
+	};
 
 
-	Arbol* raiz;
+ Nodo* raiz;
 	int tam;
     //CAMPOS ITERADOR
-	Arbol* itr;
+ Nodo* itr;
 };
 	
 
@@ -292,7 +293,7 @@ bool existe(const I& id, colecInterdep<I,V>& c){
 
 
 template<typename I,typename V>
-bool esta(const I& id, Arbol*& c){
+bool esta(const I& id, Nodo*& c){
 	if(c == nullptr){
 		return false;
 	}
@@ -321,7 +322,7 @@ bool existeDependiente(const I& id, colecInterdep<I,V>& c){
 }
 
 template<typename I,typename V>
-bool estaDependiente(const I& id, Arbol* c){
+bool estaDependiente(const I& id, Nodo* c){
 	if(c == nullptr){
 		return false;
 	}
@@ -357,7 +358,7 @@ bool existeIndependiente(const I& id, colecInterdep<I,V>& c){
 
 
 template<typename I,typename V>
-bool estaIndependiente(const I& id, Arbol* c){
+bool estaIndependiente(const I& id, Nodo* c){
 	if(c == nullptr){
 		return false;
 	}
@@ -381,7 +382,7 @@ bool estaIndependiente(const I& id, Arbol* c){
 
 
 template<typename I,typename V>
-bool encontrar(Arbol* c, const I& id, Arbol*& pBuscado){
+bool encontrar(Nodo* c, const I& id, Nodo*& pBuscado){
 	if(c == nullptr){
 		return false;
 	}
@@ -401,7 +402,7 @@ bool encontrar(Arbol* c, const I& id, Arbol*& pBuscado){
 
 
 template<typename I,typename V>
-bool buscar(colecInterdep<I,V>& c, const I& id, Arbol*& pBuscado) {
+bool buscar(colecInterdep<I,V>& c, const I& id, Nodo*& pBuscado) {
     return encontrar(c.raiz, id, pBuscado); 
 }
 
@@ -413,9 +414,9 @@ bool buscar(colecInterdep<I,V>& c, const I& id, Arbol*& pBuscado) {
 
 
 template<typename I,typename V>
-void anyadirIndependiente(Arbol*& c, const I& id, const V& v, bool &anyadido){
+void anyadirIndependiente(Nodo*& c, const I& id, const V& v, bool &anyadido){
 	if(c==nullptr){	//1er caso: es vacia
-		c = new typename colecInterdep<I,V>::Arbol;
+		c = new typename colecInterdep<I,V>: Nodo;
 		c -> ident = id;
 		c -> valor = v;
 		c -> dep = nullptr;
@@ -457,9 +458,9 @@ void anyadirIndependiente(colecInterdep<I,V>& c, const I& id, const V& v){
 
 
 template<typename I,typename V>
-void anyadirDependiente(Arbol*& c, const I& id, const V& v, Arbol* pSup, bool &anyadido){
+void anyadirDependiente(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &anyadido){
 	if(c==nullptr){	//1er caso: es vacia
-		c = new typename colecInterdep<I,V>::Arbol;
+		c = new typename colecInterdep<I,V>: Nodo;
 		c -> ident = id;
 		c -> valor = v;
 		c -> dep = pSup;
@@ -492,7 +493,7 @@ void anyadirDependiente(Arbol*& c, const I& id, const V& v, Arbol* pSup, bool &a
 template<typename I,typename V>
 void anyadirDependiente(colecInterdep<I,V>& c, const I& id, const V& v, const I& super){
 	if(!esVacia(c)){	//Como tiene que tener super la colección tiene que tener algún elemento
-		typename colecInterdep<I,V>::Arbol* pSup = c.raiz;
+		typename colecInterdep<I,V>: Nodo* pSup = c.raiz;
 		if(buscar(c,super,pSup)){
 			bool anyadido = false;
 			anyadirDependiente(c.raiz, id, v, pSup,anyadido);
@@ -516,9 +517,9 @@ template<typename I,typename V>
 void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super){
 
 	if( id!=super){
-		typename colecInterdep<I,V>::Arbol* pAux = c.raiz;
-		typename colecInterdep<I,V>::Arbol* pSuper = nullptr;
-		typename colecInterdep<I,V>::Arbol* pId = nullptr;
+		typename colecInterdep<I,V>: Nodo* pAux = c.raiz;
+		typename colecInterdep<I,V>: Nodo* pSuper = nullptr;
+		typename colecInterdep<I,V>: Nodo* pId = nullptr;
 		bool encontradoS = false; //Indica si se encuentra super
 		bool encontradoId = false; //Indica si se encuentra id
    		while ( (!encontradoS || !encontradoId) || (pAux != nullptr) ) { //Para cuando se hayan encontrado ambos o se llegue al final de la colección
@@ -558,7 +559,7 @@ void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super){
 */
 template<typename I,typename V>
 void hacerIndependiente(colecInterdep<I,V>& c, const I& id){
-	typename colecInterdep<I,V>::Arbol* pId = c.raiz;
+	typename colecInterdep<I,V>: Nodo* pId = c.raiz;
 	// Recorremos mientras no se acabe la colección y el identificador actual sea menor que el buscado
    	while (pId != nullptr && pId ->ident < id ){
  		pId = pId->sig;
@@ -581,7 +582,7 @@ void hacerIndependiente(colecInterdep<I,V>& c, const I& id){
 */
 template<typename I,typename V>
 bool actualizarVal(colecInterdep<I,V>& c, const I& id, const V& nuevo){
-	typename colecInterdep<I,V>::Arbol* pAux = c.raiz;
+	typename colecInterdep<I,V>: Nodo* pAux = c.raiz;
 	// Recorremos mientras no se acabe la colección y el identificador actual sea menor que el buscado
 	while(pAux!=nullptr && pAux -> ident < id){
 		pAux = pAux -> sig;
@@ -602,7 +603,7 @@ bool actualizarVal(colecInterdep<I,V>& c, const I& id, const V& nuevo){
 */
 template<typename I,typename V>
 bool obtenerVal(const I& id, colecInterdep<I,V>& c, V& val){	
-	typename colecInterdep<I,V>::Arbol* pAux = c.raiz;
+	typename colecInterdep<I,V>: Nodo* pAux = c.raiz;
 	// Recorremos mientras no se acabe la colección y el identificador actual sea menor que el buscado
 	while(pAux!=nullptr && pAux -> ident < id){
 		pAux = pAux -> sig;
@@ -624,7 +625,7 @@ bool obtenerVal(const I& id, colecInterdep<I,V>& c, V& val){
 */
 template<typename I,typename V>
 bool obtenerSupervisor(const I& id, colecInterdep<I,V>& c, I& sup){
-	typename colecInterdep<I,V>::Arbol* pAux = c.raiz;
+	typename colecInterdep<I,V>: Nodo* pAux = c.raiz;
 	// Recorremos mientras no se acabe la colección y el identificador actual sea menor que el buscado
 	while(pAux!=nullptr && pAux -> ident < id){
 		pAux = pAux -> sig;
@@ -649,7 +650,7 @@ bool obtenerSupervisor(const I& id, colecInterdep<I,V>& c, I& sup){
 */
 template<typename I,typename V>
 int obtenerNumDependientes(const I& id, colecInterdep<I,V>& c){
-	typename colecInterdep<I,V>::Arbol* pAux = c.raiz;
+	typename colecInterdep<I,V>: Nodo* pAux = c.raiz;
 	while(pAux!=nullptr && pAux -> ident < id){
 		pAux = pAux -> sig;
 	}	
@@ -671,7 +672,7 @@ int obtenerNumDependientes(const I& id, colecInterdep<I,V>& c){
  * estos datos. Devuelve FALSE en caso contrario.
 */
 template<typename I,typename V> bool obtenerDatos(const I& id, colecInterdep<I,V>& c, V& val, I& sup, int& numDep, bool& depende){
-	typename colecInterdep<I,V>::Arbol* pAux = c.raiz;
+	typename colecInterdep<I,V>: Nodo* pAux = c.raiz;
 	while(pAux!=nullptr && pAux -> ident < id){
 		pAux = pAux -> sig;
 	}
@@ -703,8 +704,8 @@ template<typename I,typename V> bool obtenerDatos(const I& id, colecInterdep<I,V
 */
 template<typename I ,typename V>
 void borrar(const I& id, colecInterdep<I,V>& c){
-	typename colecInterdep<I,V>::Arbol* pAux1;
-	typename colecInterdep<I,V>::Arbol* pAux2;
+	typename colecInterdep<I,V>: Nodo* pAux1;
+	typename colecInterdep<I,V>: Nodo* pAux2;
 	bool parar;
 	if(!esVacia(c)){
 			if(c.raiz->ident == id && c.raiz->numDepend == 0){ //1er caso: se encuentra al principio
@@ -754,7 +755,7 @@ void borrar(const I& id, colecInterdep<I,V>& c){
  * Este iterador permitirá visitar los elementos almacenados en la colección empezando por el.raizer elemento (el
  * de menor identificador) y acabando con el último elemento (el de mayor identificador).
  * Si el puntero itr de la colección tiene valor nullptr entonces no existe elemento pendiente por visitar (ya se 
- * han visitado todos los elementos), en caso contrario el puntero apunta a la Arbol cuyo dato es el siguiente 
+ * han visitado todos los elementos), en caso contrario el puntero apunta a la Nodo cuyo dato es el siguiente 
  * elemento a visitar.
 */
 
