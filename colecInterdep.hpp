@@ -263,7 +263,8 @@ struct colecInterdep{
 	friend bool estaIndependiente<I,V>(const I& id, Nodo* c);
 	friend void anyadirIndependiente<I,V>(Nodo*& c, const I& id, const V& v, bool &anyadido);
 	friend void anyadirDependiente<I,V>(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &anyadido);
-};
+	friend bool borrar2<I,V>(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pPadre);
+	friend void desengancharMaximo(Nodo* pBuscado, Nodo* pMax, Nodo*pPadreMax);
 	
 
 
@@ -692,6 +693,41 @@ template<typename I,typename V> bool obtenerDatos(const I& id, colecInterdep<I,V
 }
 
 
+template<typename I,typename V>
+bool borrar2(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pPadre){
+	if(c == nullptr){
+		return false;
+	}
+	else{
+		if(id < c->ident){
+			pPadre=c;
+			return borrar2(c->izq, id, pBuscado,pPadre);
+		}
+		else if(c->ident == id){
+			pBuscado = c;
+			return true;
+		}
+		else if(c->ident < id){
+			pPadre=c;
+			return borrar2(c->der, id, pBuscado,pPadre);
+		}
+	}
+}
+
+template<typename I,typename V>
+void desengancharMaximo(Nodo* pBuscado,Nodo* pMax,Nodo*pPadreMax){
+	if(pBuscado->der==nullptr){
+		pMax==pBuscado;
+		pBuscado=pBuscado->izq;
+		pMax->izq=nullptr;
+	}else{
+		pPadreMax=pBuscado;
+		pPadreMax->der=pBuscado->der->izq;
+		desengancharMaximo(pBuscado->der,pMax,pPadreMax);
+	}
+}
+
+
 /* Si existe un elemento con el identificador id en la colección c y no tiene elementos dependientes (numDepend es 0) 
  * devuelve la colección resultante de eliminar el elemento de la colección c. Si este elemento es dependiente además 
  * decrementa en 1 el numero de elementos dependientes del que este dependía. Si este elemento se elimina se libera su
@@ -700,49 +736,69 @@ template<typename I,typename V> bool obtenerDatos(const I& id, colecInterdep<I,V
 */
 template<typename I ,typename V>
 void borrar(const I& id, colecInterdep<I,V>& c){
-	typename colecInterdep<I,V>: Nodo* pAux1;
-	typename colecInterdep<I,V>: Nodo* pAux2;
-	bool parar;
-	if(!esVacia(c)){
-			if(c.raiz->ident == id && c.raiz->numDepend == 0){ //1er caso: se encuentra al principio
-				pAux1=c.raiz;
-				c.raiz=c.raiz->sig;
-				if(pAux1->dep != nullptr){
-					pAux1->dep->numDepend--;
+	if(!esVacia){
+		typename colecInterdep<I,V>::Nodo* pBuscado = c.raiz;
+		typename colecInterdep<I,V>::Nodo* pPadre;
+		if(borrar2(c.raiz,id,pBuscado,pPadre)){
+			if(pBuscado->numDepend == 0){
+				if(pBuscado->dep != nullptr){
+					pBuscado->dep->numDepend--;
 				}
-				delete pAux1;
-				c.tam--;
 
-			}else{	//Caso general: entre 2 elementos o al final
-				parar = false;
-				pAux1=c.raiz->sig;
-				pAux2=c.raiz;
-				while(pAux1 != nullptr && !parar){	
-					if(id<pAux1->ident){ //Parar si id es menor al identificador del elemento
-						parar=true;
-	
-					}else if( id == pAux1->ident && pAux1->numDepend == 0 ){ //Si se encuentra y no dependen otros elementos de este
-						if(pAux1->dep != nullptr){
-							pAux1->dep->numDepend--;
-						}
-						pAux2->sig=pAux1->sig;
-						delete pAux1;
-						parar=true;
-						c.tam--;
-	
-					}else{	//Avanzar mientras no se encuentre o se pare
-						pAux2=pAux1;
-						pAux1=pAux1->sig;
+				if(pBuscado->izq == nullptr && pBuscado -> der == nullptr){
+					if(pPadre->der->ident == id ){
+						pPadre->der = nullptr;
+					}else if(pPadre->izq->ident == id){
+						pPadre->izq = nullptr;
 					}
+					delete pBuscado;
+					c.tam--;
+				}
 
+				else if(pBuscado->izq == nullptr){
+					typename colecInterdep<I,V>::Nodo* pAux =pBuscado ;
+					if(pPadre->der->ident == id ){
+						pPadre->der = pBuscado->der;
+					}else if(pPadre->izq->ident == id){
+						pPadre->izq = pBuscado->der;
+					}
+					pBuscado=pBuscado->der;
+					delete pAux;
+					c.tam--;
+				}
+
+				else if(pBuscado->der == nullptr){
+					typename colecInterdep<I,V>::Nodo* pAux =pBuscado ;
+					if(pPadre->der->ident == id ){
+						pPadre->der = pBuscado->izq;
+					}else if(pPadre->izq->ident == id){
+						pPadre->izq = pBuscado->izq;
+					}
+					pBuscado=pBuscado->izq;
+					delete pAux;
+					c.tam--;
+				}
+
+				else{
+					typename colecInterdep<I,V>::Nodo* pMax;
+					typename colecInterdep<I,V>::Nodo* pPadreMax;
+					typename colecInterdep<I,V>::Nodo* pAux=pBuscado;
+					desengancharMaximo(pBuscado->izq,pMax,pPadreMax);
+
+					pMax->izq=pBuscado->izq;
+					pMax->der=pBuscado->der;
+					pBuscado=pMax;
+					delete pAux;
+					c.tam--;
 				}
 
 			}
 
+		}
+
 	}
 
 }
-
 
 
 
