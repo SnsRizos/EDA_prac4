@@ -511,7 +511,7 @@ void anyadirDependiente(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &any
 template<typename I,typename V>
 void anyadirDependiente(colecInterdep<I,V>& c, const I& id, const V& v, const I& super){
 	if(!esVacia(c)){	//Como tiene que tener super la colección tiene que tener algún elemento
-		typename colecInterdep<I,V>: Nodo* pSup = c.raiz;
+		typename colecInterdep<I,V>:: Nodo* pSup = c.raiz;
 		if(buscar(c,super,pSup)){
 			bool anyadido = false;
 			anyadirDependiente(c.raiz, id, v, pSup,anyadido);
@@ -535,9 +535,9 @@ template<typename I,typename V>
 void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super){
 
 	if( id!=super){
-		typename colecInterdep<I,V>: Nodo* pAux = c.raiz;
-		typename colecInterdep<I,V>: Nodo* pSuper = nullptr;
-		typename colecInterdep<I,V>: Nodo* pId = nullptr;
+		typename colecInterdep<I,V>:: Nodo* pAux = c.raiz;
+		typename colecInterdep<I,V>:: Nodo* pSuper = nullptr;
+		typename colecInterdep<I,V>:: Nodo* pId = nullptr;
 		bool encontradoS = false; //Indica si se encuentra super
 		bool encontradoId = false; //Indica si se encuentra id
    		while ( (!encontradoS || !encontradoId) || (pAux != nullptr) ) { //Para cuando se hayan encontrado ambos o se llegue al final de la colección
@@ -577,7 +577,7 @@ void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super){
 */
 template<typename I,typename V>
 void hacerIndependiente(colecInterdep<I,V>& c, const I& id){
-	typename colecInterdep<I,V>: Nodo* pId = c.raiz;
+	typename colecInterdep<I,V>:: Nodo* pId = c.raiz;
 	// Recorremos mientras no se acabe la colección y el identificador actual sea menor que el buscado
    	while (pId != nullptr && pId ->ident < id ){
  		pId = pId->sig;
@@ -600,8 +600,8 @@ void hacerIndependiente(colecInterdep<I,V>& c, const I& id){
 */
 template<typename I,typename V>
 bool actualizarVal(colecInterdep<I,V>& c, const I& id, const V& nuevo){
-	typename colecInterdep<I,V>: Nodo* pAux;
-	if(buscar(c, id, Nodo*& pAux)){
+	typename colecInterdep<I,V>:: Nodo* pAux;
+	if(buscar(c, id, pAux)){
 		pAux -> valor = nuevo;
 		return true;
 	}
@@ -617,8 +617,8 @@ bool actualizarVal(colecInterdep<I,V>& c, const I& id, const V& nuevo){
 */
 template<typename I,typename V>
 bool obtenerVal(const I& id, colecInterdep<I,V>& c, V& val){	
-	typename colecInterdep<I,V>: Nodo* pAux;
-	if(buscar(c, id, Nodo*& pAux)){
+	typename colecInterdep<I,V>:: Nodo* pAux;
+	if(buscar(c, id, pAux)){
 		val = pAux -> valor;
 		return true;
 	}
@@ -635,8 +635,8 @@ bool obtenerVal(const I& id, colecInterdep<I,V>& c, V& val){
 */
 template<typename I,typename V>
 bool obtenerSupervisor(const I& id, colecInterdep<I,V>& c, I& sup){
-	typename colecInterdep<I,V>: Nodo* pAux;
-	if(buscar(c, id, Nodo*& pAux)){
+	typename colecInterdep<I,V>:: Nodo* pAux;
+	if(buscar(c, id, pAux)){
 		if(pAux -> dep != nullptr){
 			sup = pAux -> dep;
 		}
@@ -655,8 +655,8 @@ bool obtenerSupervisor(const I& id, colecInterdep<I,V>& c, I& sup){
 */
 template<typename I,typename V>
 int obtenerNumDependientes(const I& id, colecInterdep<I,V>& c){
-	typename colecInterdep<I,V>: Nodo* pAux;
-	if(buscar(c, id, Nodo*& pAux)){
+	typename colecInterdep<I,V>:: Nodo* pAux;
+	if(buscar(c, id, pAux)){
 		return pAux -> numDepend;
 	}
 	else{
@@ -674,8 +674,8 @@ int obtenerNumDependientes(const I& id, colecInterdep<I,V>& c){
  * estos datos. Devuelve FALSE en caso contrario.
 */
 template<typename I,typename V> bool obtenerDatos(const I& id, colecInterdep<I,V>& c, V& val, I& sup, int& numDep, bool& depende){
-	typename colecInterdep<I,V>: Nodo* pAux;
-	if(buscar(c, id, Nodo*& pAux)){
+	typename colecInterdep<I,V>:: Nodo* pAux;
+	if(buscar(c, id, pAux)){
 		val = pAux -> valor;
 		numDep = pAux -> numDepend;
 		if(pAux -> dep != nullptr){
@@ -715,9 +715,9 @@ bool borrar2(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pPadre){
 }
 
 template<typename I,typename V>
-void desengancharMaximo(Nodo* pBuscado,Nodo* pMax,Nodo*pPadreMax){
+void desengancharMaximo(Nodo*& pBuscado, Nodo*& pMax, Nodo*& pPadreMax){
 	if(pBuscado->der==nullptr){
-		pMax==pBuscado;
+		pMax=pBuscado;
 		pBuscado=pBuscado->izq;
 		pMax->izq=nullptr;
 	}else{
