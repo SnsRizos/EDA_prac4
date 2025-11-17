@@ -261,12 +261,12 @@ struct colecInterdep{
 	friend bool encontrar<I,V>(Nodo* c, const I& id, Nodo*& pBuscado);
 	friend bool estaDependiente<I,V>(const I& id, Nodo* c);
 	friend bool estaIndependiente<I,V>(const I& id, Nodo* c);
-	friend void anyadirIndependiente<I,V>(Nodo*& c, const I& id, const V& v, bool &anyadido);
-	friend void anyadirDependiente<I,V>(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &anyadido);
+	friend void anyadirIndependienteRec<I,V>(Nodo*& c, const I& id, const V& v, bool &anyadido);
+	friend void anyadirDependienteRec<I,V>(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &anyadido);
 	friend bool borrar2<I,V>(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pPadre);
 	friend void desengancharMaximo(Nodo* pBuscado, Nodo* pMax, Nodo*pPadreMax);
 	
-
+	friend void apilarIzq<I,V>(colecInterdep<I,V>& c, Nodo*& pAux)
 
 //OPERACIONES
 
@@ -432,7 +432,7 @@ bool encontrar(Nodo* c, const I& id, Nodo*& pBuscado){
 
 
 template<typename I,typename V>
-void anyadirIndependiente(Nodo*& c, const I& id, const V& v, bool &anyadido){
+void anyadirIndependienteRec(Nodo*& c, const I& id, const V& v, bool &anyadido){
 	if(c==nullptr){	//1er caso: es vacia
 		c = new typename colecInterdep<I,V>: Nodo;
 		c -> ident = id;
@@ -458,25 +458,9 @@ void anyadirIndependiente(Nodo*& c, const I& id, const V& v, bool &anyadido){
 
 
 
-/* Si no se encuentra un elemento con el identificador id en la colección c devuelve el resultante de añadir el elemento 
- * independiente (id,v,-,0) a la colección c. En caso de que exista un elemento con tal identificador devuelve una
- * igual a c sin modificar.
-*/
-template<typename I,typename V>
-void anyadirIndependiente(colecInterdep<I,V>& c, const I& id, const V& v){
-	bool anyadido = false;
-	anyadirIndependiente(c.raiz, id, v, anyadido);
-	if(anyadido){
-		c.tam++;
-	}
-}
-
-
-
-
 
 template<typename I,typename V>
-void anyadirDependiente(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &anyadido){
+void anyadirDependienteRec(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &anyadido){
 	if(c==nullptr){	//1er caso: es vacia
 		c = new typename colecInterdep<I,V>: Nodo;
 		c -> ident = id;
@@ -501,6 +485,21 @@ void anyadirDependiente(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &any
 		}
 	}
 }
+
+
+/* Si no se encuentra un elemento con el identificador id en la colección c devuelve el resultante de añadir el elemento 
+ * independiente (id,v,-,0) a la colección c. En caso de que exista un elemento con tal identificador devuelve una
+ * igual a c sin modificar.
+*/
+template<typename I,typename V>
+void anyadirIndependiente(colecInterdep<I,V>& c, const I& id, const V& v){
+	bool anyadido = false;
+	anyadirIndependiente(c.raiz, id, v, anyadido);
+	if(anyadido){
+		c.tam++;
+	}
+}
+
 
 
 /* Si no se encuentra un elemento con identificador id en la colección y existe un elemento con identificador super 
@@ -813,7 +812,7 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 
 
 
-apilarIzq(colecInterdep<I,V>& c, Nodo*& pAux){
+void apilarIzq(colecInterdep<I,V>& c, Nodo*& pAux){
 	while(pAux!=nullptr){
 		apilar(c.itr, pAux);
 		pAux = pAux->izq;
