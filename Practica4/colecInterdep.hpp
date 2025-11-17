@@ -339,7 +339,7 @@ bool existe(const I& id, colecInterdep<I,V>& c){
 */
 template<typename I,typename V>
 bool existeDependiente(const I& id, colecInterdep<I,V>& c){
-	return estaDependiente(id,c.raiz);
+	return c.estaDependiente(id,c.raiz);
 }
 
 template<typename I,typename V>
@@ -374,7 +374,7 @@ bool colecInterdep<I,V>::estaDependiente(const I& id, Nodo* c){
 */
 template<typename I,typename V>
 bool existeIndependiente(const I& id, colecInterdep<I,V>& c){
-	return estaIndependiente(id,c.raiz);
+	return c.estaIndependiente(id,c.raiz);
 }
 
 
@@ -537,39 +537,21 @@ void anyadirDependiente(colecInterdep<I,V>& c, const I& id, const V& v, const I&
 */
 template<typename I,typename V>
 void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super){
-
-	if( id!=super){
-		typename colecInterdep<I,V>:: Nodo* pAux = c.raiz;
-		typename colecInterdep<I,V>:: Nodo* pSuper = nullptr;
-		typename colecInterdep<I,V>:: Nodo* pId = nullptr;
-		bool encontradoS = false; //Indica si se encuentra super
-		bool encontradoId = false; //Indica si se encuentra id
-   		while ( (!encontradoS || !encontradoId) || (pAux != nullptr) ) { //Para cuando se hayan encontrado ambos o se llegue al final de la colección
-			if(pAux->ident == id ){
-				encontradoId=true;
-				pId = pAux;
+	if(!esVacia(c)){
+		if( id!=super){
+			typename colecInterdep<I,V>:: Nodo* pAux1;
+			typename colecInterdep<I,V>:: Nodo* pAux2;
+			if(buscar(c.raiz,id,pAux1)){
+				if(buscar(c.raiz,super,pAux2)){
+					if(pAux1->dep!=nullptr){
+						pAux1->dep->numDepend--;
+					}
+					pAux1->dep=pAux2;
+					pAux2->numDepend++;
+				}
 			}
-			else if(pAux->ident == super){
-				encontradoS=true;
-				pSuper = pAux;
-			}
-			pAux = pAux->sig;
-			
-			
 		}
-	
-		if(encontradoS && encontradoId){	//Si ambos se encuentran hace al elemento con id, dependiente de sup
-			pSuper->numDepend++;
-			if(pId->dep != nullptr){
-				pId->dep->numDepend--;
-			}
-			pId->dep = pSuper;
-
-		
-		}	
-	
 	}
-
 }
 
 
@@ -581,15 +563,13 @@ void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super){
 */
 template<typename I,typename V>
 void hacerIndependiente(colecInterdep<I,V>& c, const I& id){
-	typename colecInterdep<I,V>:: Nodo* pId = c.raiz;
-	// Recorremos mientras no se acabe la colección y el identificador actual sea menor que el buscado
-   	while (pId != nullptr && pId ->ident < id ){
- 		pId = pId->sig;
-	}
-	if(pId != nullptr && pId->ident == id){ //Si encuentra el elemento
-		if(pId->dep!=nullptr){	//Si el elemento dependia de otro, si no no hay que hacer nada
-			pId->dep->numDepend--;
-			pId->dep=nullptr;
+	if(!esVacia(c)){
+		typename colecInterdep<I,V>:: Nodo* pAux1;
+		if(buscar(c.raiz,id,pAux1)){
+			if(pAux1->dep!=nullptr){
+				pAux1->dep->numDepend--;
+				pAux1->dep=nullptr;
+			}
 		}
 	}
 }
