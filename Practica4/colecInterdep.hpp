@@ -812,15 +812,21 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 */
 
 
+
+apilarIzq(colecInterdep<I,V>& c, Nodo*& pAux){
+	while(pAux!=nullptr){
+		apilar(c.itr, pAux);
+		pAux = pAux->izq;
+	}
+}
+
 /* Inicia el iterador para que el siguiente elemento a visitar sea el.raizer elemento de la colección c, si existe.
 */
 template<typename I,typename V>
 void iniciarIterador(colecInterdep<I,V>& c){
 	typename colecInterdep<I,V>::Nodo* pAux = c.raiz;
 	liberar(c.itr);
-	while(aux!=){
-
-	}
+	apilarIzq(c, pAux);
 }
 
 /* Devuelve en forma de booleano TRUE si y solo si queda algún elemento por visitar en la colección c y FALSE en caso 
@@ -828,7 +834,7 @@ void iniciarIterador(colecInterdep<I,V>& c){
 */
 template<typename I,typename V>
 bool existeSiguiente(colecInterdep<I,V>& c){
-	return c.itr != nullptr;
+	return esVacia(c.itr);
 }
 
 
@@ -838,8 +844,16 @@ bool existeSiguiente(colecInterdep<I,V>& c){
 template<typename I,typename V>
 bool siguienteIdent(colecInterdep<I,V>& c, I& id){
 	if(existeSiguiente(c)){
-		id = c.itr -> ident;
-		return true;
+		bool error;
+		typename colecInterdep<I,V>::Nodo* pAux = nullptr;
+		cima(c.itr, pAux, error);
+		if(!error){
+			id = pAux -> ident;
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	else{
 		return false;
@@ -853,8 +867,16 @@ bool siguienteIdent(colecInterdep<I,V>& c, I& id){
 template<typename I,typename V>
 bool siguienteVal(colecInterdep<I,V>& c, V& val){
 	if(existeSiguiente(c)){
-		val = c.itr -> valor;
-		return true;
+		bool error;
+		typename colecInterdep<I,V>::Nodo* pAux = nullptr;
+		cima(c.itr, pAux, error);
+		if(!error){
+			val = pAux -> valor;
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	else{
 		return false;
@@ -868,11 +890,19 @@ bool siguienteVal(colecInterdep<I,V>& c, V& val){
 template<typename I,typename V>
 bool siguienteDependiente(colecInterdep<I,V>& c){
 	if(existeSiguiente(c)){
-		return c.itr -> dep != nullptr;
+		bool error;
+		typename colecInterdep<I,V>::Nodo* pAux = nullptr;
+		cima(c.itr, pAux, error);
+		if(!error){
+			return pAux -> dep != nullptr;
+		}
+		else{
+			return false;
+		}
 	}
 	else{
 		return false;
-	}
+	}	
 }
 
 
@@ -883,8 +913,16 @@ bool siguienteDependiente(colecInterdep<I,V>& c){
 template<typename I,typename V>
 bool siguienteSuperior(colecInterdep<I,V>& c, I& sup){
 	if(siguienteDependiente(c)){
-		sup = c.itr -> dep -> ident;
-		return true;
+		bool error;
+		typename colecInterdep<I,V>::Nodo* pAux = nullptr;
+		cima(c.itr, pAux, error);
+		if(!error){
+			sup = pAux -> dep;
+			return true;
+		}
+		else{
+			return false;
+		}
 	} 
 	else{
 		return false;
@@ -898,11 +936,19 @@ bool siguienteSuperior(colecInterdep<I,V>& c, I& sup){
 template<typename I,typename V>
 int siguienteNumDependientes(colecInterdep<I,V>& c){
 	if(existeSiguiente(c)){
-		return c.itr -> numDepend;
+		bool error;
+		typename colecInterdep<I,V>::Nodo* pAux = nullptr;
+		cima(c.itr, pAux, error);
+		if(!error){
+			return pAux -> numDepend;
+		}
+		else{
+			return -1;
+		}
 	}
 	else{
 		return -1;
-	}
+	} 
 }
 
 
@@ -912,7 +958,13 @@ int siguienteNumDependientes(colecInterdep<I,V>& c){
 template<typename I,typename V>
 bool avanza(colecInterdep<I,V>& c){
 	if(existeSiguiente(c)){
-		c.itr = c.itr -> sig;
+		typename colecInterdep<I,V>::Nodo* pAux = nullptr;
+		cima(c.itr, pAux, error);
+		desapilar(C.itr);
+		if(pAux -> der != nullptr){
+			apilarIzq(c, pAux->der);
+		}
+
 		return true;
 	}
 	else{
