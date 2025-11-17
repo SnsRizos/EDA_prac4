@@ -18,5 +18,4 @@ int main(){
     string ident;
     string info;
     int    prioridad;
-	
 }

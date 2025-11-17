@@ -256,17 +256,20 @@ struct colecInterdep{
 
 
 	//AUX
-	friend bool esta<I,V>(const I& id, Nodo*& c);
-	friend bool buscar<I,V>(colecInterdep<I,V>& c, const I& id, Nodo*& pBuscado);
-	friend bool encontrar<I,V>(Nodo* c, const I& id, Nodo*& pBuscado);
-	friend bool estaDependiente<I,V>(const I& id, Nodo* c);
-	friend bool estaIndependiente<I,V>(const I& id, Nodo* c);
-	friend void anyadirIndependienteRec<I,V>(Nodo*& c, const I& id, const V& v, bool &anyadido);
-	friend void anyadirDependienteRec<I,V>(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &anyadido);
-	friend bool borrar2<I,V>(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pPadre);
-	friend void desengancharMaximo(Nodo* pBuscado, Nodo* pMax, Nodo*pPadreMax);
+	bool esta(const I& id, Nodo*& c);
+	bool buscar(colecInterdep<I,V>& c, const I& id, Nodo*& pBuscado);
+	bool encontrar(Nodo* c, const I& id, Nodo*& pBuscado);
+	bool estaDependiente(const I& id, Nodo* c);
+	bool estaIndependiente(const I& id, Nodo* c);
+	void anyadirIndependienteRec(Nodo*& c, const I& id, const V& v, bool &anyadido);
+	void anyadirDependienteRec(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &anyadido);
+	bool borrar2(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pPadre);
+	void desengancharMaximo(Nodo*& pBuscado, Nodo*& pMax, Nodo*& pPadreMax);
 	
-	friend void apilarIzq<I,V>(colecInterdep<I,V>& c, Nodo*& pAux)
+	void apilarIzq(colecInterdep<I,V>& c, Nodo*& pAux);
+
+};
+
 
 //OPERACIONES
 
@@ -276,7 +279,7 @@ template<typename I,typename V>
 void crear(colecInterdep<I,V>& c){
 	c.tam=0;
 	c.raiz=nullptr;
-	c.itr=nullptr;
+	crearVacia(c.itr);
 
 }
 
@@ -299,17 +302,9 @@ bool esVacia(colecInterdep<I,V>& c){
 }
 
 
-/* Devuelve en forma de booleano TRUE si y solo si en la colección c hay un elemento con el identificador aportado.
- * Devuelve FALSE en caso contrario.
-*/
-template<typename I,typename V> 
-bool existe(const I& id, colecInterdep<I,V>& c){
-	return esta(id,c.raiz);
-}
-
 
 template<typename I,typename V>
-bool esta(const I& id, Nodo*& c){
+bool colecInterdep<I,V>::esta(const I& id, Nodo*& c){
 	if(c == nullptr){
 		return false;
 	}
@@ -327,6 +322,16 @@ bool esta(const I& id, Nodo*& c){
 }
 
 
+/* Devuelve en forma de booleano TRUE si y solo si en la colección c hay un elemento con el identificador aportado.
+ * Devuelve FALSE en caso contrario.
+*/
+template<typename I,typename V> 
+bool existe(const I& id, colecInterdep<I,V>& c){
+	return c.esta(id,c.raiz);
+}
+
+
+
 
 /* Devuelve en forma de booleano TRUE si y solo si en la colección c hay un elemento con identificcador id que sea 
  * dependiente de otro elemento, es decir que el puntero dep del elemento no apunte a nullptr. Devuelve FALSE en caso
@@ -338,7 +343,7 @@ bool existeDependiente(const I& id, colecInterdep<I,V>& c){
 }
 
 template<typename I,typename V>
-bool estaDependiente(const I& id, Nodo* c){
+bool colecInterdep<I,V>::estaDependiente(const I& id, Nodo* c){
 	if(c == nullptr){
 		return false;
 	}
@@ -374,7 +379,7 @@ bool existeIndependiente(const I& id, colecInterdep<I,V>& c){
 
 
 template<typename I,typename V>
-bool estaIndependiente(const I& id, Nodo* c){
+bool colecInterdep<I,V>::estaIndependiente(const I& id, Nodo* c){
 	if(c == nullptr){
 		return false;
 	}
@@ -401,14 +406,14 @@ bool estaIndependiente(const I& id, Nodo* c){
 
 
 template<typename I,typename V>
-bool buscar(colecInterdep<I,V>& c, const I& id, Nodo*& pBuscado) {
+bool colecInterdep<I,V>::buscar(colecInterdep<I,V>& c, const I& id, Nodo*& pBuscado) {
     return encontrar(c.raiz, id, pBuscado); 
 }
 
 
 
 template<typename I,typename V>
-bool encontrar(Nodo* c, const I& id, Nodo*& pBuscado){
+bool colecInterdep<I,V>::encontrar(Nodo* c, const I& id, Nodo*& pBuscado){
 	if(c == nullptr){
 		return false;
 	}
@@ -432,9 +437,9 @@ bool encontrar(Nodo* c, const I& id, Nodo*& pBuscado){
 
 
 template<typename I,typename V>
-void anyadirIndependienteRec(Nodo*& c, const I& id, const V& v, bool &anyadido){
+void colecInterdep<I,V>::anyadirIndependienteRec(Nodo*& c, const I& id, const V& v, bool &anyadido){
 	if(c==nullptr){	//1er caso: es vacia
-		c = new typename colecInterdep<I,V>: Nodo;
+		c = new typename colecInterdep<I,V>:: Nodo;
 		c -> ident = id;
 		c -> valor = v;
 		c -> dep = nullptr;
@@ -445,10 +450,10 @@ void anyadirIndependienteRec(Nodo*& c, const I& id, const V& v, bool &anyadido){
 	}
 	else{
 		if(id < c->ident){
-			anyadirIndependiente(c->izq, id, v, anyadido);
+			anyadirIndependienteRec(c->izq, id, v, anyadido);
 		}
 		else if(c->ident < id){
-			anyadirIndependiente(c->der, id, v, anyadido);
+			anyadirIndependienteRec(c->der, id, v, anyadido);
 		}
 		else if(id == c->ident){
 			//Nada
@@ -460,9 +465,9 @@ void anyadirIndependienteRec(Nodo*& c, const I& id, const V& v, bool &anyadido){
 
 
 template<typename I,typename V>
-void anyadirDependienteRec(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &anyadido){
+void colecInterdep<I,V>::anyadirDependienteRec(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &anyadido){
 	if(c==nullptr){	//1er caso: es vacia
-		c = new typename colecInterdep<I,V>: Nodo;
+		c = new typename colecInterdep<I,V>:: Nodo;
 		c -> ident = id;
 		c -> valor = v;
 		c -> dep = pSup;
@@ -475,10 +480,10 @@ void anyadirDependienteRec(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &
 	}
 	else{
 		if(id < c->ident){
-			anyadirDependiente(c->izq, id, v, pSup, anyadido);
+			anyadirDependienteRec(c->izq, id, v, pSup, anyadido);
 		}
 		else if(c->ident < id){
-			anyadirDependiente(c->der, id, v, pSup, anyadido);
+			anyadirDependienteRec(c->der, id, v, pSup, anyadido);
 		}
 		else if(id == c->ident){
 			//Nada
@@ -494,7 +499,7 @@ void anyadirDependienteRec(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &
 template<typename I,typename V>
 void anyadirIndependiente(colecInterdep<I,V>& c, const I& id, const V& v){
 	bool anyadido = false;
-	anyadirIndependiente(c.raiz, id, v, anyadido);
+	c.anyadirIndependienteRec(c.raiz, id, v, anyadido);
 	if(anyadido){
 		c.tam++;
 	}
@@ -511,9 +516,9 @@ template<typename I,typename V>
 void anyadirDependiente(colecInterdep<I,V>& c, const I& id, const V& v, const I& super){
 	if(!esVacia(c)){	//Como tiene que tener super la colección tiene que tener algún elemento
 		typename colecInterdep<I,V>:: Nodo* pSup = c.raiz;
-		if(buscar(c,super,pSup)){
+		if(c.buscar(c,super,pSup)){
 			bool anyadido = false;
-			anyadirDependiente(c.raiz, id, v, pSup,anyadido);
+			c.anyadirDependienteRec(c.raiz, id, v, pSup,anyadido);
 			if(anyadido){
 				c.tam++;
 			}
@@ -600,7 +605,7 @@ void hacerIndependiente(colecInterdep<I,V>& c, const I& id){
 template<typename I,typename V>
 bool actualizarVal(colecInterdep<I,V>& c, const I& id, const V& nuevo){
 	typename colecInterdep<I,V>:: Nodo* pAux;
-	if(buscar(c, id, pAux)){
+	if(c.buscar(c, id, pAux)){
 		pAux -> valor = nuevo;
 		return true;
 	}
@@ -617,7 +622,7 @@ bool actualizarVal(colecInterdep<I,V>& c, const I& id, const V& nuevo){
 template<typename I,typename V>
 bool obtenerVal(const I& id, colecInterdep<I,V>& c, V& val){	
 	typename colecInterdep<I,V>:: Nodo* pAux;
-	if(buscar(c, id, pAux)){
+	if(c.buscar(c, id, pAux)){
 		val = pAux -> valor;
 		return true;
 	}
@@ -635,7 +640,7 @@ bool obtenerVal(const I& id, colecInterdep<I,V>& c, V& val){
 template<typename I,typename V>
 bool obtenerSupervisor(const I& id, colecInterdep<I,V>& c, I& sup){
 	typename colecInterdep<I,V>:: Nodo* pAux;
-	if(buscar(c, id, pAux)){
+	if(c.buscar(c, id, pAux)){
 		if(pAux -> dep != nullptr){
 			sup = pAux -> dep;
 		}
@@ -655,7 +660,7 @@ bool obtenerSupervisor(const I& id, colecInterdep<I,V>& c, I& sup){
 template<typename I,typename V>
 int obtenerNumDependientes(const I& id, colecInterdep<I,V>& c){
 	typename colecInterdep<I,V>:: Nodo* pAux;
-	if(buscar(c, id, pAux)){
+	if(c.buscar(c, id, pAux)){
 		return pAux -> numDepend;
 	}
 	else{
@@ -674,11 +679,11 @@ int obtenerNumDependientes(const I& id, colecInterdep<I,V>& c){
 */
 template<typename I,typename V> bool obtenerDatos(const I& id, colecInterdep<I,V>& c, V& val, I& sup, int& numDep, bool& depende){
 	typename colecInterdep<I,V>:: Nodo* pAux;
-	if(buscar(c, id, pAux)){
+	if(c.buscar(c, id, pAux)){
 		val = pAux -> valor;
 		numDep = pAux -> numDepend;
 		if(pAux -> dep != nullptr){
-			sup = pAux -> dep;
+			sup = pAux->dep ->ident;
 			depende = true;
 		}
 		else{
@@ -693,7 +698,7 @@ template<typename I,typename V> bool obtenerDatos(const I& id, colecInterdep<I,V
 
 
 template<typename I,typename V>
-bool borrar2(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pPadre){
+bool colecInterdep<I,V>::borrar2(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pPadre){
 	if(c == nullptr){
 		return false;
 	}
@@ -714,7 +719,7 @@ bool borrar2(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pPadre){
 }
 
 template<typename I,typename V>
-void desengancharMaximo(Nodo*& pBuscado, Nodo*& pMax, Nodo*& pPadreMax){
+void colecInterdep<I,V>::desengancharMaximo(Nodo*& pBuscado, Nodo*& pMax, Nodo*& pPadreMax){
 	if(pBuscado->der==nullptr){
 		pMax=pBuscado;
 		pBuscado=pBuscado->izq;
@@ -735,10 +740,10 @@ void desengancharMaximo(Nodo*& pBuscado, Nodo*& pMax, Nodo*& pPadreMax){
 */
 template<typename I ,typename V>
 void borrar(const I& id, colecInterdep<I,V>& c){
-	if(!esVacia){
+	if(!esVacia(c)){
 		typename colecInterdep<I,V>::Nodo* pBuscado = c.raiz;
 		typename colecInterdep<I,V>::Nodo* pPadre;
-		if(borrar2(c.raiz,id,pBuscado,pPadre)){
+		if(c.borrar2(c.raiz,id,pBuscado,pPadre)){
 			if(pBuscado->numDepend == 0){
 				if(pBuscado->dep != nullptr){
 					pBuscado->dep->numDepend--;
@@ -782,7 +787,7 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 					typename colecInterdep<I,V>::Nodo* pMax;
 					typename colecInterdep<I,V>::Nodo* pPadreMax;
 					typename colecInterdep<I,V>::Nodo* pAux=pBuscado;
-					desengancharMaximo(pBuscado->izq,pMax,pPadreMax);
+					c.desengancharMaximo(pBuscado->izq,pMax,pPadreMax);
 
 					pMax->izq=pBuscado->izq;
 					pMax->der=pBuscado->der;
@@ -812,7 +817,8 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 
 
 
-void apilarIzq(colecInterdep<I,V>& c, Nodo*& pAux){
+template<typename I,typename V>
+void colecInterdep<I,V>::apilarIzq(colecInterdep<I,V>& c, Nodo*& pAux){
 	while(pAux!=nullptr){
 		apilar(c.itr, pAux);
 		pAux = pAux->izq;
@@ -825,7 +831,7 @@ template<typename I,typename V>
 void iniciarIterador(colecInterdep<I,V>& c){
 	typename colecInterdep<I,V>::Nodo* pAux = c.raiz;
 	liberar(c.itr);
-	apilarIzq(c, pAux);
+	c.apilarIzq(c, pAux);
 }
 
 /* Devuelve en forma de booleano TRUE si y solo si queda algún elemento por visitar en la colección c y FALSE en caso 
@@ -916,7 +922,7 @@ bool siguienteSuperior(colecInterdep<I,V>& c, I& sup){
 		typename colecInterdep<I,V>::Nodo* pAux = nullptr;
 		cima(c.itr, pAux, error);
 		if(!error){
-			sup = pAux -> dep;
+			sup = pAux->dep->ident;
 			return true;
 		}
 		else{
@@ -957,11 +963,12 @@ int siguienteNumDependientes(colecInterdep<I,V>& c){
 template<typename I,typename V>
 bool avanza(colecInterdep<I,V>& c){
 	if(existeSiguiente(c)){
+		bool error;
 		typename colecInterdep<I,V>::Nodo* pAux = nullptr;
 		cima(c.itr, pAux, error);
-		desapilar(C.itr);
+		desapilar(c.itr);
 		if(pAux -> der != nullptr){
-			apilarIzq(c, pAux->der);
+			c.apilarIzq(c, pAux->der);
 		}
 
 		return true;
