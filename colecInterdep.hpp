@@ -686,7 +686,7 @@ bool colecInterdep<I,V>::borrar2(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pP
 }
 
 template<typename I,typename V>
-void colecInterdep<I,V>::desengancharMaximo(Nodo*& pBuscado, Nodo*& pMax, Nodo*& pPadreMax){
+void colecInterdep<I,V>::desengancharMaximo(Nodo*& pAux2, Nodo*& pMax, Nodo*& pPadreMax){
 	if(pBuscado->der==nullptr){
 		pMax=pBuscado;
 		pBuscado=pBuscado->izq;
@@ -754,7 +754,8 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 					typename colecInterdep<I,V>::Nodo* pMax;
 					typename colecInterdep<I,V>::Nodo* pPadreMax;
 					typename colecInterdep<I,V>::Nodo* pAux=pBuscado;
-					c.desengancharMaximo(pBuscado->izq,pMax,pPadreMax);
+					typename colecInterdep<I,V>::Nodo* pAux2=pBuscado->izq;
+					c.desengancharMaximo(pAux2,pMax,pPadreMax);
 
 					pMax->izq=pAux->izq;
 					pMax->der=pAux->der;
