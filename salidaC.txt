@@ -1,0 +1,105 @@
+-----LISTADO: 0
+-----
+NO INTRODUCIDO: [ CHimchar -de-> cyndaquil ] --- oragután de fueguito --- ( 69 )
+INTRODUCIDO: [ cyndaquil ] --- Typloshion es mejor --- ( 1 )
+INTRODUCIDO: [ CHimchar -de-> cyndaquil ] --- orangután de fueguito --- ( 69 )
+-----LISTADO: 2
+[ CHimchar -de-> cyndaquil ;;; 0 ] --- orangután de fueguito --- ( 69 )
+[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 )
+-----
+****DEPENDIENTES: cyndaquil
+[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 ) ****
+[1 -> CHimchar -de-> cyndaquil ;;; 0 ] --- orangután de fueguito --- ( 69 ) ;;;;
+****FINAL dependientes -de-> cyndaquil
+INTRODUCIDO: [ Camello ] --- Camaleón --- ( 67 )
+CAMBIADO: [ CHimchar -de-> cyndaquil ;;; 0 ] --- chistorra al ascuas --- ( 67 )
+NO INTRODUCIDO: [ Rodrygo -de-> Fernando Torres ] --- espaghettis --- ( 10 )
+INTRODUCIDO: [ Iniesta ] --- Fuente Albilla no se toca --- ( 8 )
+NO BORRADO: la Mija Mal
+INTRODUCIDO: [ Fernando Torres ] --- Cortador de jamón profesional --- ( 3000 )
+INTENTANDO hacer depend.: Fernando Torres -de-> Iniesta
+LOCALIZADO: [ Iniesta --- 1 ] --- Fuente Albilla no se toca --- ( 8 )
+LOCALIZADO: [ Fernando Torres -de-> Iniesta ;;; 0 ] --- Cortador de jamón profesional --- ( 3000 )
+NO BORRADO: Iniesta
+LOCALIZADO: [ Fernando Torres -de-> Iniesta ;;; 0 ] --- Cortador de jamón profesional --- ( 3000 )
+BORRADO: Fernando Torres
+BORRADO: Iniesta
+-----LISTADO: 3
+[ CHimchar -de-> cyndaquil ;;; 0 ] --- chistorra al ascuas --- ( 67 )
+[ Camello --- 0 ] --- Camaleón --- ( 67 )
+[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 )
+-----
+IMPOSIBLE hacer depend.: cyndaquil	 -de-> CHimchar
+-----LISTADO: 3
+[ CHimchar -de-> cyndaquil ;;; 0 ] --- chistorra al ascuas --- ( 67 )
+[ Camello --- 0 ] --- Camaleón --- ( 67 )
+[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 )
+-----
+INTRODUCIDO: [ Hornet Silksong ] --- best indie --- ( 0 )
+INTRODUCIDO: [ Hollow -de-> Hornet Silksong ] --- knight --- ( 1 )
+INTRODUCIDO: [ Hormiga Salvaje -de-> Hollow ] --- boss --- ( 2 )
+NO BORRADO: Hornet Silksong
+NO BORRADO: Hollow
+BORRADO: Hormiga Salvaje
+-----LISTADO: 5
+[ CHimchar -de-> cyndaquil ;;; 0 ] --- chistorra al ascuas --- ( 67 )
+[ Camello --- 0 ] --- Camaleón --- ( 67 )
+[ Hollow -de-> Hornet Silksong ;;; 0 ] --- knight --- ( 1 )
+[ Hornet Silksong --- 1 ] --- best indie --- ( 0 )
+[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 )
+-----
+INTRODUCIDO: [ Hormiga Salvaje -de-> Hollow ] --- boss --- ( 2 )
+BORRADO: Hormiga Salvaje
+BORRADO: Hollow
+BORRADO: Hornet Silksong
+INTENTANDO hacer depend.: cyndaquil -de-> CHimchar
+-----LISTADO: 3
+[ CHimchar -de-> cyndaquil ;;; 1 ] --- chistorra al ascuas --- ( 67 )
+[ Camello --- 0 ] --- Camaleón --- ( 67 )
+[ cyndaquil -de-> CHimchar ;;; 1 ] --- Typloshion es mejor --- ( 1 )
+-----
+NO BORRADO: cyndaquil
+NO BORRADO: CHimchar
+INDEPENDIZADO: cyndaquil
+BORRADO: CHimchar
+-----LISTADO: 2
+[ Camello --- 0 ] --- Camaleón --- ( 67 )
+[ cyndaquil --- 0 ] --- Typloshion es mejor --- ( 1 )
+-----
+YA ERA INDepend.: cyndaquil
+NO INDEPENDIZADO: Solaris
+DESCONOCIDO: Solaris
+INTENTANDO hacer depend.: Camello -de-> cyndaquil
+INDEPendiente: cyndaquil
+DEPendiente: Camello
+****DEPENDIENTES: cyndaquil
+[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 ) ****
+[1 -> Camello -de-> cyndaquil ;;; 0 ] --- Camaleón --- ( 67 ) ;;;;
+****FINAL dependientes -de-> cyndaquil
+INTENTANDO hacer depend.: cyndaquil -de-> Camello
+****DEPENDIENTES: cyndaquil
+[ cyndaquil -de-> Camello ;;; 1 ] --- Typloshion es mejor --- ( 1 ) ****
+[1 -> Camello -de-> cyndaquil ;;; 1 ] --- Camaleón --- ( 67 ) ;;;;
+****FINAL dependientes -de-> cyndaquil
+NO INTRODUCIDO: [ cyndaquil ] --- pokemon --- ( 0 )
+-----LISTADO: 2
+[ Camello -de-> cyndaquil ;;; 1 ] --- Camaleón --- ( 67 )
+[ cyndaquil -de-> Camello ;;; 1 ] --- Typloshion es mejor --- ( 1 )
+-----
+NO BORRADO: ON_luces Z008
+INDEPENDIZADO: Camello
+BORRADO: cyndaquil
+BORRADO: Camello
+NO BORRADO: presencia_S008
+NO BORRADO: cierre_2025_10_6
+NO BORRADO: Validacion_P001_exterior
+NO BORRADO: apertura_P001
+****DEPENDIENTES: Camello
+****DESCONOCIDO
+-----LISTADO: 0
+-----
+NO LOCALIZADO: cyndaquil
+NO INDEPENDIZADO: ON_luces Z008
+IMPOSIBLE hacer depend.: ON_luces Z008 -de-> Jesucristo
+NO BORRADO: presencia_S008
+DESCONOCIDO: Bale
