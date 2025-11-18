@@ -265,7 +265,7 @@ struct colecInterdep{
 	bool borrar2(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pPadre);
 	void desengancharMaximo(Nodo*& pBuscado, Nodo*& pMax, Nodo*& pPadreMax);
 	
-	void apilarIzq(colecInterdep<I,V>& c, Nodo*& pAux);
+	void apilarIzq(colecInterdep<I,V>& c, Nodo* pAux);
 
 };
 
@@ -314,7 +314,7 @@ bool colecInterdep<I,V>::esta(const I& id, Nodo*& c){
 		else if(c->ident == id){
 			return true;
 		}
-		else if(c->ident < id){
+		else{
 			return esta(id,c->der);
 		}
 	}
@@ -358,7 +358,7 @@ bool colecInterdep<I,V>::estaDependiente(const I& id, Nodo* c){
 				return false;
 			}
 		}
-		else if(c->ident < id){
+		else{
 			return estaDependiente(id,c->der);
 		}
 	}
@@ -394,7 +394,7 @@ bool colecInterdep<I,V>::estaIndependiente(const I& id, Nodo* c){
 				return false;
 			}
 		}
-		else if(c->ident < id){
+		else{
 			return estaIndependiente(id,c->der);
 		}
 	}
@@ -417,7 +417,7 @@ bool colecInterdep<I,V>::buscar(Nodo* c, const I& id, Nodo*& pBuscado) {
 			pBuscado = c;
 			return true;
 		}
-		else if(c->ident < id){
+		else{
 			return buscar(c->der, id, pBuscado);
 		}
 	} 
@@ -680,7 +680,7 @@ bool colecInterdep<I,V>::borrar2(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pP
 			pBuscado = c;
 			return true;
 		}
-		else if(c->ident < id){
+		else{
 			pPadre=c;
 			return borrar2(c->der, id, pBuscado,pPadre);
 		}
@@ -787,7 +787,7 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 
 
 template<typename I,typename V>
-void colecInterdep<I,V>::apilarIzq(colecInterdep<I,V>& c, Nodo*& pAux){
+void colecInterdep<I,V>::apilarIzq(colecInterdep<I,V>& c, Nodo* pAux){
 	while(pAux!=nullptr){
 		apilar(c.itr, pAux);
 		pAux = pAux->izq;
@@ -808,7 +808,7 @@ void iniciarIterador(colecInterdep<I,V>& c){
 */
 template<typename I,typename V>
 bool existeSiguiente(colecInterdep<I,V>& c){
-	return esVacia(c.itr);
+	return !esVacia(c.itr);
 }
 
 
