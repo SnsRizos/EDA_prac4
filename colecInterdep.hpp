@@ -266,13 +266,13 @@ struct colecInterdep{
 
 
 	//AUX
-	friend bool esta(const I& id,typename colecInterdep<I,V>::Nodo*& c);
-	friend bool buscar(Nodo* c, const I& id, typename colecInterdep<I,V>::Nodo*&  pBuscado);
-	friend bool estaDependiente(const I& id, typename colecInterdep<I,V>::Nodo* c);
-	friend bool estaIndependiente(const I& id, typename colecInterdep<I,V>::Nodo*  c);
-	friend void anyadirIndependienteRec(typename colecInterdep<I,V>::Nodo*&  c, const I& id, const V& v, bool &anyadido);
-	friend void anyadirDependienteRec(typename colecInterdep<I,V>::Nodo*&  c, const I& id, const V& v, typename colecInterdep<I,V>::Nodo* pSup, bool &anyadido);
-	friend void desengancharMaximo(typename colecInterdep<I,V>::Nodo*&  pBuscado, typename colecInterdep<I,V>::Nodo*&  pMax);
+	friend bool esta<I,V>(const I& id,typename colecInterdep<I,V>::Nodo*& c);
+	friend bool buscar<I,V>(Nodo* c, const I& id, typename colecInterdep<I,V>::Nodo*&  pBuscado);
+	friend bool estaDependiente<I,V>(const I& id, typename colecInterdep<I,V>::Nodo* c);
+	friend bool estaIndependiente<I,V>(const I& id, typename colecInterdep<I,V>::Nodo*  c);
+	friend void anyadirIndependienteRec<I,V>(typename colecInterdep<I,V>::Nodo*&  c, const I& id, const V& v, bool &anyadido);
+	friend void anyadirDependienteRec<I,V>(typename colecInterdep<I,V>::Nodo*&  c, const I& id, const V& v, typename colecInterdep<I,V>::Nodo* pSup, bool &anyadido);
+	friend void desengancharMaximo<I,V>(typename colecInterdep<I,V>::Nodo*&  pBuscado, typename colecInterdep<I,V>::Nodo*&  pMax);
 
 };
 
