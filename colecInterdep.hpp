@@ -264,8 +264,6 @@ struct colecInterdep{
 	void anyadirDependienteRec(Nodo*& c, const I& id, const V& v, Nodo* pSup, bool &anyadido);
 	bool borrar2(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pPadre);
 	void desengancharMaximo(Nodo*& pBuscado, Nodo*& pMax, Nodo*& pPadreMax);
-	
-	void apilarIzq(colecInterdep<I,V>& c, Nodo* pAux);
 
 };
 
@@ -693,9 +691,9 @@ void colecInterdep<I,V>::desengancharMaximo(Nodo*& pBuscado, Nodo*& pMax, Nodo*&
 		pMax=pBuscado;
 		pBuscado=pBuscado->izq;
 		pMax->izq=nullptr;
+		pPadreMax->der=pBuscado;
 	}else{
 		pPadreMax=pBuscado;
-		pPadreMax->der=pBuscado->der->izq;
 		desengancharMaximo(pBuscado->der,pMax,pPadreMax);
 	}
 }
@@ -786,13 +784,7 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 
 
 
-template<typename I,typename V>
-void colecInterdep<I,V>::apilarIzq(colecInterdep<I,V>& c, Nodo* pAux){
-	while(pAux!=nullptr){
-		apilar(c.itr, pAux);
-		pAux = pAux->izq;
-	}
-}
+
 
 /* Inicia el iterador para que el siguiente elemento a visitar sea el.raizer elemento de la colección c, si existe.
 */
@@ -800,7 +792,10 @@ template<typename I,typename V>
 void iniciarIterador(colecInterdep<I,V>& c){
 	typename colecInterdep<I,V>::Nodo* pAux = c.raiz;
 	liberar(c.itr);
-	c.apilarIzq(c, pAux);
+	while(pAux!=nullptr){
+		apilar(c.itr, pAux);
+		pAux = pAux->izq;
+	}
 }
 
 /* Devuelve en forma de booleano TRUE si y solo si queda algún elemento por visitar en la colección c y FALSE en caso 
@@ -937,7 +932,10 @@ bool avanza(colecInterdep<I,V>& c){
 		cima(c.itr, pAux, error);
 		desapilar(c.itr);
 		if(pAux -> der != nullptr){
-			c.apilarIzq(c, pAux->der);
+			while(pAux!=nullptr){
+				apilar(c.itr, pAux);
+				pAux = pAux->izq;
+			}
 		}
 
 		return true;
