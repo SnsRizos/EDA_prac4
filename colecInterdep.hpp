@@ -687,14 +687,14 @@ bool colecInterdep<I,V>::borrar2(Nodo* c, const I& id, Nodo*& pBuscado,Nodo*& pP
 
 template<typename I,typename V>
 void colecInterdep<I,V>::desengancharMaximo(Nodo*& pAux2, Nodo*& pMax, Nodo*& pPadreMax){
-	if(pBuscado->der==nullptr){
-		pMax=pBuscado;
-		pBuscado=pBuscado->izq;
+	if(pAux2->der==nullptr){
+		pMax=pAux2;
+		pAux2=pAux2->izq;
 		pMax->izq=nullptr;
-		pPadreMax->der=pBuscado;
+		pPadreMax->der=pAux2;
 	}else{
-		pPadreMax=pBuscado;
-		desengancharMaximo(pBuscado->der,pMax,pPadreMax);
+		pPadreMax=pAux2;
+		desengancharMaximo(pAux2->der,pMax,pPadreMax);
 	}
 }
 
