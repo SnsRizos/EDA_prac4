@@ -535,8 +535,8 @@ template<typename I,typename V>
 void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super){
 	if(!esVacia(c)){
 		if( id!=super){
-			typename colecInterdep<I,V>:: Nodo* pAux1;
-			typename colecInterdep<I,V>:: Nodo* pAux2;
+			typename colecInterdep<I,V>:: Nodo* pAux1=nullptr;
+			typename colecInterdep<I,V>:: Nodo* pAux2=nullptr;
 			if(buscar<I,V>(c.raiz,id,pAux1)){
 				if(buscar<I,V>(c.raiz,super,pAux2)){
 					if(pAux1->dep!=nullptr){
@@ -560,7 +560,7 @@ void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super){
 template<typename I,typename V>
 void hacerIndependiente(colecInterdep<I,V>& c, const I& id){
 	if(!esVacia(c)){
-		typename colecInterdep<I,V>:: Nodo* pAux1;
+		typename colecInterdep<I,V>:: Nodo* pAux1=nullptr;
 		if(buscar<I,V>(c.raiz,id,pAux1)){
 			if(pAux1->dep!=nullptr){
 				pAux1->dep->numDepend--;
