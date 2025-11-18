@@ -756,8 +756,8 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 					typename colecInterdep<I,V>::Nodo* pAux=pBuscado;
 					c.desengancharMaximo(pBuscado->izq,pMax,pPadreMax);
 
-					pMax->izq=pBuscado->izq;
-					pMax->der=pBuscado->der;
+					pMax->izq=pAux->izq;
+					pMax->der=pAux->der;
 					pBuscado=pMax;
 					delete pAux;
 					c.tam--;
@@ -932,6 +932,8 @@ bool avanza(colecInterdep<I,V>& c){
 		cima(c.itr, pAux, error);
 		desapilar(c.itr);
 		if(pAux -> der != nullptr){
+			pAux = pAux -> der;
+
 			while(pAux!=nullptr){
 				apilar(c.itr, pAux);
 				pAux = pAux->izq;
