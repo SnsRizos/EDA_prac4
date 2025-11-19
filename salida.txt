@@ -2,23 +2,12 @@
 -----
 NO INTRODUCIDO: [ CHimchar -de-> cyndaquil ] --- oragután de fueguito --- ( 69 )
 INTRODUCIDO: [ cyndaquil ] --- Typloshion es mejor --- ( 1 )
-INTRODUCIDO: [ CHimchar -de-> cyndaquil ] --- orangután de fueguito --- ( 69 )
------LISTADO: 2
-[ CHimchar -de-> cyndaquil ;;; 0 ] --- orangután de fueguito --- ( 69 )
-[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 )
+NO INTRODUCIDO: [ CHimchar -de-> cyndaquil ] --- orangután de fueguito --- ( 69 )
+-----LISTADO: 1
+[ cyndaquil --- 0 ] --- Typloshion es mejor --- ( 1 )
 -----
 ****DEPENDIENTES: cyndaquil
-[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 ) ****
-[1 -> CHimchar -de-> cyndaquil ;;; 0 ] --- orangután de fueguito --- ( 69 ) ;;;;
+[ cyndaquil --- 0 ] --- Typloshion es mejor --- ( 1 ) ****
 ****FINAL dependientes -de-> cyndaquil
 INTRODUCIDO: [ Camello ] --- Camaleón --- ( 67 )
-CAMBIADO: [ CHimchar -de-> cyndaquil ;;; 0 ] --- chistorra al ascuas --- ( 67 )
-NO INTRODUCIDO: [ Rodrygo -de-> Fernando Torres ] --- espaghettis --- ( 10 )
-INTRODUCIDO: [ Iniesta ] --- Fuente Albilla no se toca --- ( 8 )
-NO BORRADO: la Mija Mal
-INTRODUCIDO: [ Fernando Torres ] --- Cortador de jamón profesional --- ( 3000 )
-INTENTANDO hacer depend.: Fernando Torres -de-> Iniesta
-LOCALIZADO: [ Iniesta --- 1 ] --- Fuente Albilla no se toca --- ( 8 )
-LOCALIZADO: [ Fernando Torres -de-> Iniesta ;;; 0 ] --- Cortador de jamón profesional --- ( 3000 )
-NO BORRADO: Iniesta
-LOCALIZADO: [ Fernando Torres -de-> Iniesta ;;; 0 ] --- Cortador de jamón profesional --- ( 3000 )
+NO CAMBIADO: CHimchar
