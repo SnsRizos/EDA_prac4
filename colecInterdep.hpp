@@ -187,10 +187,7 @@ template<typename I,typename V> bool avanza(colecInterdep<I,V>& c);
 ////Apartir de aqui PRIVADO///////////////////////////////////////////////////
 
 
-	template<typename I,typename V> bool esta(const I& id,typename colecInterdep<I,V>::Nodo* &c);
 	template<typename I,typename V> typename colecInterdep<I,V>::Nodo*& buscar(typename colecInterdep<I,V>::Nodo*& buscado, const I& id);
-	template<typename I,typename V> bool estaDependiente(const I& id, typename colecInterdep<I,V>::Nodo* c);
-	template<typename I,typename V> bool estaIndependiente(const I& id, typename colecInterdep<I,V>::Nodo* c);
 	template<typename I,typename V> void anyadirIndependienteRec(typename colecInterdep<I,V>::Nodo* &c, const I& id, const V& v, bool &anyadido);
 	template<typename I,typename V> void anyadirDependienteRec(typename colecInterdep<I,V>::Nodo* &c, const I& id, const V& v, typename colecInterdep<I,V>::Nodo* pSup, bool &anyadido);
 	template<typename I,typename V> void desengancharMaximo(typename colecInterdep<I,V>::Nodo* &pBuscado, typename colecInterdep<I,V>::Nodo* &pMax);
@@ -265,10 +262,7 @@ struct colecInterdep{
 
 
 	//AUX
-	friend bool esta<I,V>(const I& id,typename colecInterdep<I,V>::Nodo* &c);
 	friend typename colecInterdep<I,V>::Nodo*& buscar<I,V>(typename colecInterdep<I,V>::Nodo*& buscado, const I& id);
-	friend bool estaDependiente<I,V>(const I& id, typename colecInterdep<I,V>::Nodo* c);
-	friend bool estaIndependiente<I,V>(const I& id, typename colecInterdep<I,V>::Nodo*  c);
 	friend void anyadirIndependienteRec<I,V>(typename colecInterdep<I,V>::Nodo* &c, const I& id, const V& v, bool &anyadido);
 	friend void anyadirDependienteRec<I,V>(typename colecInterdep<I,V>::Nodo* &c, const I& id, const V& v, typename colecInterdep<I,V>::Nodo* pSup, bool &anyadido);
 	friend void desengancharMaximo<I,V>(typename colecInterdep<I,V>::Nodo* &pBuscado, typename colecInterdep<I,V>::Nodo* &pMax);
@@ -307,23 +301,6 @@ bool esVacia(colecInterdep<I,V>& c){
 
 
 
-template<typename I,typename V>
-bool esta(const I& id, typename colecInterdep<I,V>::Nodo* &c){
-	if(c == nullptr){
-		return false;
-	}
-	else{
-		if(id < c->ident){
-			return esta<I,V>(id,c->izq);
-		}
-		else if(c->ident == id){
-			return true;
-		}
-		else{
-			return esta<I,V>(id,c->der);
-		}
-	}
-}
 
 
 /* Devuelve en forma de booleano TRUE si y solo si en la colección c hay un elemento con el identificador aportado.
@@ -331,7 +308,8 @@ bool esta(const I& id, typename colecInterdep<I,V>::Nodo* &c){
 */
 template<typename I,typename V> 
 bool existe(const I& id, colecInterdep<I,V>& c){
-	return esta<I,V>(id,c.raiz);
+	typename colecInterdep<I,V>:: Nodo* pAux = buscar<I,V>(c.raiz, id);
+	return pAux != nullptr;
 }
 
 
@@ -343,29 +321,17 @@ bool existe(const I& id, colecInterdep<I,V>& c){
 */
 template<typename I,typename V>
 bool existeDependiente(const I& id, colecInterdep<I,V>& c){
-	return estaDependiente<I,V>(id,c.raiz);
-}
-
-template<typename I,typename V>
-bool estaDependiente(const I& id, typename colecInterdep<I,V>::Nodo* c){
-	if(c == nullptr){
-		return false;
-	}
-	else{
-		if(id < c->ident){
-			return estaDependiente<I,V>(id,c->izq);
-		}
-		else if(c->ident == id){
-			if(c->dep != nullptr){
-				return true;
-			}
-			else{
-				return false;
-			}
+	typename colecInterdep<I,V>:: Nodo* pAux = buscar<I,V>(c.raiz, id);
+	if(pAux!=nullptr){
+		if(pAux->dep!=nullptr){
+			return true;
 		}
 		else{
-			return estaDependiente<I,V>(id,c->der);
+			return false;
 		}
+	}
+	else{
+		return false;
 	}
 }
 
@@ -378,34 +344,19 @@ bool estaDependiente(const I& id, typename colecInterdep<I,V>::Nodo* c){
 */
 template<typename I,typename V>
 bool existeIndependiente(const I& id, colecInterdep<I,V>& c){
-	return estaIndependiente<I,V>(id,c.raiz);
-}
-
-
-template<typename I,typename V>
-bool estaIndependiente(const I& id, typename colecInterdep<I,V>::Nodo* c){
-	if(c == nullptr){
-		return false;
-	}
-	else{
-		if(id < c->ident){
-			return estaIndependiente<I,V>(id,c->izq);
-		}
-		else if(c->ident == id){
-			if(c->dep == nullptr){
-				return true;
-			}
-			else{
-				return false;
-			}
+	typename colecInterdep<I,V>:: Nodo* pAux = buscar<I,V>(c.raiz, id);
+	if(pAux!=nullptr){
+		if(pAux->dep==nullptr){
+			return true;
 		}
 		else{
-			return estaIndependiente<I,V>(id,c->der);
+			return false;
 		}
 	}
+	else{
+		return false;
+	}
 }
-
-
 
 
 
