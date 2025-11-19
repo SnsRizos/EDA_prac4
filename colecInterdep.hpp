@@ -195,7 +195,6 @@ template<typename I,typename V> bool avanza(colecInterdep<I,V>& c);
 	template<typename I,typename V> void anyadirDependienteRec(typename colecInterdep<I,V>::Nodo* &c, const I& id, const V& v, typename colecInterdep<I,V>::Nodo* pSup, bool &anyadido);
 	template<typename I,typename V> void desengancharMaximo(typename colecInterdep<I,V>::Nodo* &pBuscado, typename colecInterdep<I,V>::Nodo* &pMax);
 
-
 // DECLARACION DEL TAD GENERICO colecInterdep
 
 template<typename I,typename V>
@@ -273,7 +272,6 @@ struct colecInterdep{
 	friend void anyadirIndependienteRec<I,V>(typename colecInterdep<I,V>::Nodo* &c, const I& id, const V& v, bool &anyadido);
 	friend void anyadirDependienteRec<I,V>(typename colecInterdep<I,V>::Nodo* &c, const I& id, const V& v, typename colecInterdep<I,V>::Nodo* pSup, bool &anyadido);
 	friend void desengancharMaximo<I,V>(typename colecInterdep<I,V>::Nodo* &pBuscado, typename colecInterdep<I,V>::Nodo* &pMax);
-
 };
 
 
