@@ -509,7 +509,7 @@ template<typename I,typename V>
 void anyadirDependiente(colecInterdep<I,V>& c, const I& id, const V& v, const I& super){
 	if(!esVacia(c)){	//Como tiene que tener super la colección tiene que tener algún elemento
 		typename colecInterdep<I,V>:: Nodo* pSup = buscar<I,V>(c.raiz,super);
-		if(pSup==nullptr){	//Si es nullptr es poque tiene punto de insercion, sino se debe a que ya existe
+		if(pSup!=nullptr){	//Si es nullptr es poque tiene punto de insercion, sino se debe a que ya existe
 			bool anyadido = false;
 			anyadirDependienteRec<I,V>(c.raiz, id, v, pSup,anyadido);
 			if(anyadido){
@@ -719,7 +719,7 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 					typename colecInterdep<I,V>::Nodo* pMax;
 
 					
-					desengancharMaximo<I,V>(pBuscado->izq,pMax);
+					desengancharMaximo<I,V>(pAux->izq,pMax);
 
 					pMax->izq=pAux->izq;
 					pMax->der=pAux->der;
