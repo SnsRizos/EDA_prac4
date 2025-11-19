@@ -114,7 +114,7 @@ LT
 B
 cyndaquil
 B
-CHimcharQ
+CHimchar
 I
 cyndaquil
 B

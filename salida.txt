@@ -59,7 +59,7 @@ INTENTANDO hacer depend.: cyndaquil -de-> CHimchar
 [ cyndaquil -de-> CHimchar ;;; 1 ] --- Typloshion es mejor --- ( 1 )
 -----
 NO BORRADO: cyndaquil
-NO BORRADO: CHimcharQ
+NO BORRADO: CHimchar
 INDEPENDIZADO: cyndaquil
 BORRADO: CHimchar
 -----LISTADO: 2
