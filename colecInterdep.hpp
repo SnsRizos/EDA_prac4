@@ -308,7 +308,11 @@ bool existe(const I& id, colecInterdep<I,V>& c){
 
 
 
-
+/* Dado un identificador id pasasdo por entrada,una colección c pasada por referencia y un booleano depende pasado
+ * por referencia,devuelve en forma de booleano TRUE si y solo si en la colección c hay un elemento con el 
+ * identificador aportado.Devuelve FALSE en caso contrario.Y asigna al booleano depende el valor true si al
+ * encontrarlo el puntero depende no es nullptr y le asignano el valor false si es igual a nullptr.
+*/
 
 template<typename I,typename V>
 bool existeDepOIndep(const I& id, colecInterdep<I,V>& c, bool& depende){
@@ -327,7 +331,10 @@ bool existeDepOIndep(const I& id, colecInterdep<I,V>& c, bool& depende){
 	}
 }
 
-
+/* Dado un nodo buscado pasado por referencia y un identificador id pasado por entrada,procedemos a comprobar 
+ * la existencia de un nodo con identificador id ,si encontramos este nodo devuelve el nodo buscado con valor
+ * el nodo actual,si no devuelve nodo buscado con valor nullptr.
+*/
 
 template<typename I,typename V>
 typename colecInterdep<I,V>::Nodo*& buscar(typename colecInterdep<I,V>::Nodo*& buscado, const I& id) {
@@ -347,10 +354,10 @@ typename colecInterdep<I,V>::Nodo*& buscar(typename colecInterdep<I,V>::Nodo*& b
 	} 
 }
 
-/*Dado un nodo pasado por referencia c,un identificador id pasado por entrada,un valor v pasado por entrada 
-*y un booleano anyadido pasado por referencia.Procede a crear un nuevo nodo añadiendo como información el identificador id,
-*el valor v y asignando al booleano anyadido el valor true si se ha creado el nodo,tras recorrer toda la colección 
-*comprobando la inexistencia previa de un nodo con identificador id.
+/* Dado un nodo pasado por referencia c,un identificador id pasado por entrada,un valor v pasado por entrada 
+ * y un booleano anyadido pasado por referencia.Procede a crear un nuevo nodo añadiendo como información el identificador id,
+ * el valor v y asignando al booleano anyadido el valor true si se ha creado el nodo,tras recorrer toda la colección 
+ * comprobando la inexistencia previa de un nodo con identificador id.
 */
 
 template<typename I,typename V>
@@ -380,11 +387,11 @@ void anyadirIndependienteRec(typename colecInterdep<I,V>::Nodo* &c, const I& id,
 
 
 
-/*Dado dos nodos pasados por referencia c y pSup,un identificador id pasado por entrada,un valor v pasado por entrada 
-*y un booleano anyadido pasado por referencia.Procede a crear un nuevo nodo añadiendo como información el identificador id,
-*el valor v , el nodo pSup como su superior y asignando al booleano anyadido el valor true si se ha creado el nodo,tras 
-*recorrer toda la colección comprobando la inexistencia previa de un nodo con identificador id.Previamente confirmada 
-*la existencia de pSup.
+/* Dado dos nodos pasados por referencia c y pSup,un identificador id pasado por entrada,un valor v pasado por entrada 
+ * y un booleano anyadido pasado por referencia.Procede a crear un nuevo nodo añadiendo como información el identificador id,
+ * el valor v , el nodo pSup como su superior y asignando al booleano anyadido el valor true si se ha creado el nodo,tras 
+ * recorrer toda la colección comprobando la inexistencia previa de un nodo con identificador id.Previamente confirmada 
+ * la existencia de pSup.
 */
 template<typename I,typename V>
 void anyadirDependienteRec(typename colecInterdep<I,V>::Nodo* &c, const I& id, const V& v, typename colecInterdep<I,V>::Nodo* pSup, bool &anyadido){
@@ -602,9 +609,9 @@ bool obtenerDatos(const I& id, colecInterdep<I,V>& c, V& val, I& sup, int& numDe
 
 
 
-/*Dado dos nodos pasados por referencia pBuscado y pMax.Procede a llegar al último hijo derecho,copiando el nodo en pMax y 
- *modificando pBuscado como hijo izquierdo del nodo actual, y dejando al hijo izquierdo en nullptr.Devolviendo pMax como el 
- *máximo nodo. 
+/* Dado dos nodos pasados por referencia pBuscado y pMax.Procede a llegar al último hijo derecho,copiando el nodo en pMax y 
+ * modificando pBuscado como hijo izquierdo del nodo actual, y dejando al hijo izquierdo en nullptr.Devolviendo pMax como el 
+ * máximo nodo. 
 */
 template<typename I,typename V>
 void desengancharMaximo(typename colecInterdep<I,V>::Nodo* &pBuscado, typename colecInterdep<I,V>::Nodo* &pMax){
