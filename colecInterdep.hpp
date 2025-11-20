@@ -132,7 +132,7 @@ template<typename I,typename V> bool obtenerDatos(const I& id, colecInterdep<I,V
 template<typename I,typename V> void borrar(const I& id, colecInterdep<I,V>& c);
 
 
-/* Inicia el iterador para que el siguiente elemento a visitar sea el.raizer elemento de la colección c, si existe.
+/* Inicia el iterador para que el siguiente elemento a visitar sea la raiz elemento de la colección c, si existe.
 */
 template<typename I,typename V> void iniciarIterador(colecInterdep<I,V>& c);
 
@@ -223,7 +223,7 @@ struct colecInterdep{
 
   private: /* En esta implementación la colección se representará en memoria dinámica como una lista enlazada de Nodos ordenada 
   			* por el identificdor de los elementos de menor a mayor con: 
-	        * - el puntero.raiz: apuntando a la Nodo que contiene el.raizer elemento de la colección, será nullptr si la colección
+	        * - el puntero.raiz: apuntando a la Nodo que contiene la raiz elemento de la colección, será nullptr si la colección
 			* está vacía
 		    * - el campo tam: mantendrá calculado el tamaño o número de elementos en la colección, será 0 si la pila está vacía 
 		    * - el puntero itr: se utilizará para mantener el estado del iterador, y únicamente será utilizado por las operaciones 
@@ -231,7 +231,7 @@ struct colecInterdep{
 			* y avanza.
 			* Cada Nodo contendrá un identificador (en su campo ident), un valor (en su campo valor), apuntará con su puntero dep 
 			* al elemento del que es dependiente o a nullptr si es independiente, un entero que almacenará el número de elementos 
-			* que dependen de este y apuntará con su puntero sig a la próxima Nodo que contenga el.raizer elemento con un identificador
+			* que dependen de este y apuntará con su puntero sig a la próxima Nodo que contenga la raiz elemento con un identificador
 			* mayor a este o a nullptr si este es el elemento con mayor identificador.
 	   
     Todas las funciones de la colcección tienen coste lineal O(n) salvo crear, tamanyo y esVacia que tienen coste
@@ -661,7 +661,7 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 
 //ITERADOR
 /* Las ocho operaciones siguientes conforman un iterador interno para la colección: 
- * Este iterador permitirá visitar los elementos almacenados en la colección empezando por el.raizer elemento (el
+ * Este iterador permitirá visitar los elementos almacenados en la colección empezando por la raiz elemento (el
  * de menor identificador) y acabando con el último elemento (el de mayor identificador).
  * Si el puntero itr de la colección tiene valor nullptr entonces no existe elemento pendiente por visitar (ya se 
  * han visitado todos los elementos), en caso contrario el puntero apunta a la Nodo cuyo dato es el siguiente 
@@ -672,7 +672,7 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 
 
 
-/* Inicia el iterador para que el siguiente elemento a visitar sea el.raizer elemento de la colección c, si existe.
+/* Inicia el iterador para que el siguiente elemento a visitar sea la raiz elemento de la colección c, si existe.
 */
 template<typename I,typename V>
 void iniciarIterador(colecInterdep<I,V> &c){
