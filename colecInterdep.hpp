@@ -347,7 +347,11 @@ typename colecInterdep<I,V>::Nodo*& buscar(typename colecInterdep<I,V>::Nodo*& b
 	} 
 }
 
-
+/*Dado un nodo pasado por referencia c,un identificador id pasado por entrada,un valor v pasado por entrada 
+*y un booleano anyadido pasado por referencia.Procede a crear un nuevo nodo añadiendo como información el identificador id,
+*el valor v y asignando al booleano anyadido el valor true si se ha creado el nodo,tras recorrer toda la colección 
+*comprobando la inexistencia previa de un nodo con identificador id.
+*/
 
 template<typename I,typename V>
 void anyadirIndependienteRec(typename colecInterdep<I,V>::Nodo* &c, const I& id, const V& v, bool &anyadido){
@@ -376,7 +380,12 @@ void anyadirIndependienteRec(typename colecInterdep<I,V>::Nodo* &c, const I& id,
 
 
 
-
+/*Dado dos nodos pasados por referencia c y pSup,un identificador id pasado por entrada,un valor v pasado por entrada 
+*y un booleano anyadido pasado por referencia.Procede a crear un nuevo nodo añadiendo como información el identificador id,
+*el valor v , el nodo pSup como su superior y asignando al booleano anyadido el valor true si se ha creado el nodo,tras 
+*recorrer toda la colección comprobando la inexistencia previa de un nodo con identificador id.Previamente confirmada 
+*la existencia de pSup.
+*/
 template<typename I,typename V>
 void anyadirDependienteRec(typename colecInterdep<I,V>::Nodo* &c, const I& id, const V& v, typename colecInterdep<I,V>::Nodo* pSup, bool &anyadido){
 	if(c==nullptr){	//1er caso: es vacia
