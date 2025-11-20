@@ -229,7 +229,7 @@ struct colecInterdep{
 		    * - el puntero itr: se utilizará para mantener el estado del iterador, y únicamente será utilizado por las operaciones 
 			* iniciarIterador, existeSiguiente, siguienteIdent, siguienteVal, siguienteDependiente, siguienteSuperior, siguienteNumDependientes
 			* y avanza.
-			* Cada Nodo contendrá un identificador (en su campo ident), un valor (en su campo valor), apuntará con su puntero dep 
+			* Cada Nodo contendrá un identificador (en su campo ident), un valor (en su campo valor), apuntará con su puntero dep
 			* al elemento del que es dependiente o a nullptr si es independiente, un entero que almacenará el número de elementos 
 			* que dependen de este y apuntará con su puntero sig a la próxima Nodo que contenga la raiz elemento con un identificador
 			* mayor a este o a nullptr si este es el elemento con mayor identificador.
