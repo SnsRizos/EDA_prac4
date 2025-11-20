@@ -593,19 +593,23 @@ bool obtenerDatos(const I& id, colecInterdep<I,V>& c, V& val, I& sup, int& numDe
 
 
 
+/*Dado dos nodos pasados por referencia pBuscado y pMax.Procede a llegar al último hijo derecho,copiando el nodo en pMax y 
+ *modificando pBuscado como hijo izquierdo del nodo actual, y dejando al hijo izquierdo en nullptr.Devolviendo pMax como el 
+ *máximo nodo. 
+*/
 template<typename I,typename V>
 void desengancharMaximo(typename colecInterdep<I,V>::Nodo* &pBuscado, typename colecInterdep<I,V>::Nodo* &pMax){
-	if(pBuscado->der==nullptr){
-		pMax=pBuscado;
-		pBuscado=pBuscado->izq;
+	if(pBuscado->der==nullptr){//Es el último hijo derecho
+		pMax=pBuscado; //Copia en pMax el nodo actual
+		pBuscado=pBuscado->izq;//Pone a pBuscado como el hijo izquierdo
 		pMax->izq=nullptr;
 	}else{
-		desengancharMaximo<I,V>(pBuscado->der,pMax);
+		desengancharMaximo<I,V>(pBuscado->der,pMax);//Llamada recursiva para llegar al ultimo hijo
 	}
 }
 
 
-/* Si existe un elemento con el identificador id en la colección c y no tiene elementos dependientes (numDepend es 0) 
+/* Dado un identificador pasado por entrada id y una colección pasada por referencia c.Si existe un elemento con el identificador id en la colección c y no tiene elementos dependientes (numDepend es 0) 
  * devuelve la colección resultante de eliminar el elemento de la colección c. Si este elemento es dependiente además 
  * decrementa en 1 el numero de elementos dependientes del que este dependía. Si este elemento se elimina se libera su
  * información en memoria mediante tras haber reestructurado correctamente la colección.
@@ -616,30 +620,30 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 	if(!esVacia(c)){
 		typename colecInterdep<I,V>:: Nodo*& pBuscado = buscar<I,V>(c.raiz, id);
 	if(pBuscado!=nullptr){	//existe
-			if(pBuscado->numDepend == 0){
+			if(pBuscado->numDepend == 0){//No depende nadie de él
 				if(pBuscado->dep != nullptr){
 					pBuscado->dep->numDepend--;
 				}
 
 				typename colecInterdep<I,V>::Nodo* pAux =pBuscado ;
 
-				if(pBuscado->izq == nullptr && pBuscado -> der == nullptr){
+				if(pBuscado->izq == nullptr && pBuscado -> der == nullptr){//Caso hoja o Nodo Raíz
 					pBuscado = nullptr;
 				}
 
-				else if(pBuscado->izq == nullptr){
+				else if(pBuscado->izq == nullptr){//Caso no hay hijo izquierdo
 					pBuscado = pBuscado->der;
 				}
 
-				else if(pBuscado->der == nullptr){
+				else if(pBuscado->der == nullptr){//Caso no hay hijo derecho
 					pBuscado = pBuscado->izq;
 				}
 
-				else{
+				else{//Caso hay ambos hijos
 					typename colecInterdep<I,V>::Nodo* pMax;
 
 					
-					desengancharMaximo<I,V>(pAux->izq,pMax);
+					desengancharMaximo<I,V>(pAux->izq,pMax);//Procedo a buscar el maximo de su hijo izquierdo
 
 					pMax->izq=pAux->izq;
 					pMax->der=pAux->der;
