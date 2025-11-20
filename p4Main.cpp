@@ -1,4 +1,4 @@
-/* Mijayl Mandzyak Melnyk 935521 Hector Manzano Miranda 926092*/
+/* Mijayl Mandzyak Melnyk 935521 Hector Manzano Miranda 926029*/
 #include "colecInterdep.hpp"
 #include "evento.hpp"
 #include <fstream>
@@ -63,7 +63,8 @@ void leerInstrucciones(colecInterdep<string,evento>colec){
 				getline(f,info);
 				f >> prioridad;
 				getline(f,salto);
-				crearEvento(info,prioridad,v);
+				cambiarDescripcion(v,info);
+				cambiarPrioridad(v,prioridad);
 				
 					if(actualizarVal(colec,ident,v)){
 						s <<"CAMBIADO: ";
@@ -97,12 +98,12 @@ void leerInstrucciones(colecInterdep<string,evento>colec){
 				}
 			}else if(instruccion == "E"){//BUSCA SI EXISTE ESE IDENT
 				getline(f,ident);
-
-				if(existe(ident,colec)){
-					if(existeIndependiente(ident,colec)){
-						s <<"INDEPendiente: ";
-					}else{
+				bool esDep;
+				if(existeDepOIndep(ident,colec,esDep)){
+					if(esDep){
 						s <<"DEPendiente: ";
+					}else{
+						s <<"INDEPendiente: ";
 					}
 				}else{
 					s <<"DESCONOCIDO: ";
@@ -112,9 +113,10 @@ void leerInstrucciones(colecInterdep<string,evento>colec){
 			
 			}else if(instruccion =="I"){//HACE INDEPENDIENTE A ESE IDENT
 				getline(f,ident);
+				bool esDep;
 			
-				if(existe(ident,colec)){
-					if(existeIndependiente(ident,colec)){
+				if(existeDepOIndep(ident,colec,esDep)){
+					if(!esDep){
 						s <<"YA ERA INDepend.: ";
 					}else{
 						hacerIndependiente(colec,ident);

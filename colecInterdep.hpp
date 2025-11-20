@@ -1,4 +1,4 @@
-/* Mijayl Mandzyak Melnyk 935521 Hector Manzano Miranda 926092*/
+/* Mijayl Mandzyak Melnyk 935521 Hector Manzano Miranda 926029*/
 #ifndef COLECINTEDEP_HPP
 #define COLECINTEDEP_HPP
 
@@ -47,16 +47,11 @@ template<typename I,typename V> bool esVacia(colecInterdep<I,V>& c);
 template<typename I,typename V> bool existe(const I& id, colecInterdep<I,V>& c);
 
 
-/* Devuelve en forma de booleano TRUE si y solo si en la colección c hay un elemento con identificcador id que sea 
- * dependiente de otro elemento. Devuelve FALSE en caso de no encontrar dicho elemento o que este no sea dependiente.
-*/
-template<typename I,typename V> bool existeDependiente(const I& id, colecInterdep<I,V>& c);
 
-
-/* Devuelve en forma de booleano TRUE si y solo si en la colección c hay un elemento con el identificador id que 
- * no sea dependiente de otro elemento. Devuelve FALSE en caso de no encontrar dicho elemento o que este sea dependiente.
+/*
+ *
 */
-template<typename I,typename V> bool existeIndependiente(const I& id, colecInterdep<I,V>& c);
+template<typename I,typename V> bool existeDepOIndep(const I& id, colecInterdep<I,V>& c, bool& depende);
 
 
 /* Si no se encuentra un elemento con el identificador id en la colección c devuelve el resultante de añadir el elemento 
@@ -201,8 +196,7 @@ struct colecInterdep{
 	friend int tamanyo<I,V>(colecInterdep<I,V>& c);
 	friend bool esVacia<I,V>(colecInterdep<I,V>& c);
 	friend bool existe<I,V>(const I& id, colecInterdep<I,V>& c);
-	friend bool existeDependiente<I,V>(const I& id, colecInterdep<I,V>& c);
-	friend bool existeIndependiente<I,V>(const I& id, colecInterdep<I,V>& c);
+	friend bool existeDepOIndep<I,V>(const I& id, colecInterdep<I,V>& c, bool& depende);
 	friend void anyadirIndependiente<I,V>(colecInterdep<I,V>& c, const I& id,const V& v);
 	friend void anyadirDependiente<I,V>(colecInterdep<I,V>& c, const I& id, const V& v, const I& super);
 	friend void hacerDependiente<I,V>(colecInterdep<I,V>& c,const I& id, const I& super);
@@ -315,43 +309,18 @@ bool existe(const I& id, colecInterdep<I,V>& c){
 
 
 
-/* Devuelve en forma de booleano TRUE si y solo si en la colección c hay un elemento con identificcador id que sea 
- * dependiente de otro elemento, es decir que el puntero dep del elemento no apunte a nullptr. Devuelve FALSE en caso
- * de no encontrar dicho elemento o que este no sea dependiente.
-*/
+
 template<typename I,typename V>
-bool existeDependiente(const I& id, colecInterdep<I,V>& c){
-	typename colecInterdep<I,V>:: Nodo* pAux = buscar<I,V>(c.raiz, id);
-	if(pAux!=nullptr){
-		if(pAux->dep!=nullptr){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-	else{
-		return false;
-	}
-}
-
-
-
-
-/* Devuelve en forma de booleano TRUE si y solo si en la colección c hay un elemento con el identificador id que no
- * sea dependiente de otro elemento, es decir que el puntero dep del elemento apunte a nullptr. Devuelve FALSE en caso 
- * de no encontrar dicho elemento o que este sea dependiente.
-*/
-template<typename I,typename V>
-bool existeIndependiente(const I& id, colecInterdep<I,V>& c){
+bool existeDepOIndep(const I& id, colecInterdep<I,V>& c, bool& depende){
 	typename colecInterdep<I,V>:: Nodo* pAux = buscar<I,V>(c.raiz, id);
 	if(pAux!=nullptr){
 		if(pAux->dep==nullptr){
-			return true;
+			depende = false;
 		}
 		else{
-			return false;
+			depende = true;
 		}
+		return true;
 	}
 	else{
 		return false;
