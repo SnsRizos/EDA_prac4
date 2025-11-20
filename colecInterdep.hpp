@@ -451,7 +451,7 @@ void anyadirDependiente(colecInterdep<I,V>& c, const I& id, const V& v, const I&
 template<typename I,typename V>
 void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super){
 	if(!esVacia(c)){
-		if( id!=super){
+		if( !(id==super)){
 			typename colecInterdep<I,V>:: Nodo* pAux1 = buscar<I,V>(c.raiz,id);
 			typename colecInterdep<I,V>:: Nodo* pAux2= buscar<I,V>(c.raiz,super);
 			if(pAux1 != nullptr){	//que existe
