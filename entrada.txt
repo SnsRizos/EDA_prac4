@@ -1,179 +1,238 @@
 LT
 A
-CHimchar
+chimchar
 oragután de fueguito
 69
-DEPendiente
-cyndaquil
+INDependiente
+-.-.-.-.-
 A
-cyndaquil
+ampharos
+Typloshion es mejor
+1
+INDependiente
+-.-.-.-.-
+LD
+ampharos
+A
+sarpullido
+enfermedad
+67
+INDependiente
+-.-.-.-.-
+LT
+B
+ampharos
+B
+sarpullido
+LT
+B
+chimchar
+LT
+A
+chimchar
+oragután de fueguito
+69
+INDependiente
+-.-.-.-.-
+A
+ampharos
 Typloshion es mejor
 1
 INDependiente
 -.-.-.-.-
 A
-CHimchar
-orangután de fueguito
-69
-DEPendiente
-cyndaquil
-LT
-LD
-cyndaquil
-A
-Camello
-Camaleón
+sarpullido
+enfermedad
 67
 INDependiente
 -.-.-.-.-
-C 
-CHimchar
-chistorra al ascuas
-67
 A
-Rodrygo
-espaghettis
-10
-DEPendiente
-Fernando Torres
-A
-Iniesta
-Fuente Albilla no se toca
-8
-INDependiente
--.-.-.-.-
-B
-la Mija Mal
-A
-Fernando Torres
-Cortador de jamón profesional
-3000
-INDependiente
--.-.-.-.-
-D
-Fernando Torres
-Iniesta
-O
-Iniesta
-O
-Fernando Torres
-B
-Iniesta
-O
-Fernando Torres
-B
-Fernando Torres
-B
-Iniesta
-LT
-D
-cyndaquil	
-CHimchar
-LT
-A
-Hornet Silksong
+hornet silksong
 best indie
 0
 INDependiente
 -.-.-.-.-
 A
-Hollow
+hollow
 knight
 1
 DEPendiente
-Hornet Silksong
+hornet silksong
 A
 Hormiga Salvaje
 boss
 2
 DEPendiente
-Hollow
-B
-Hornet Silksong
-B
-Hollow
-B
-Hormiga Salvaje
+hollow
 LT
-A
-Hormiga Salvaje
-boss
-2
-DEPendiente
-Hollow
+B
+hollow
+B
+hornet silksong
+B
+chimchar
+B
+ampharos
+B
+sarpullido
+LT
+I
+hollow
 B
 Hormiga Salvaje
 B 
-Hollow
+hollow
 B
-Hornet Silksong
-D
-cyndaquil
-CHimchar
+hornet silksong
+B
+chimchar
 LT
-B
-cyndaquil
-B
-CHimchar
-I
-cyndaquil
-B
-CHimchar
-LT
-I
-cyndaquil
-I
-Solaris
-E
-Solaris
-D
-Camello
-cyndaquil
-E
-cyndaquil
-E
-Camello
-LD
-cyndaquil
-D
-cyndaquil
-Camello
-LD
-cyndaquil
 A
-cyndaquil
+chimchar
+oragután de fueguito
+69
+DEPendiente
+ampharos
+A
+ampharos
+Typloshion es mejor
+1
+INDependiente
+-.-.-.-.-
+A
+chimchar
+orangután de fueguito
+69
+DEPendiente
+ampharos
+LT
+LD
+ampharos
+A
+sarpullido
+enfermedad
+67
+INDependiente
+-.-.-.-.-
+C 
+chimchar
+chistorra al ascuas
+67
+A
+rodrygo
+espaghettis
+10
+DEPendiente
+fernando torres
+A
+iniesta
+Fuente Albilla no se toca
+8
+INDependiente
+-.-.-.-.-
+LT
+B
+la Mija Mal
+A
+fernando torres
+Cortador de jamón profesional
+3000
+INDependiente
+-.-.-.-.-
+D
+fernando torres
+iniesta
+O
+iniesta
+O
+fernando torres
+B
+iniesta
+O
+fernando torres
+B
+fernando torres
+B
+iniesta
+LT
+D
+ampharos	
+chimchar
+LT
+A
+hornet silksong
+best indie
+0
+INDependiente
+-.-.-.-.-
+A
+hollow
+knight
+1
+DEPendiente
+hornet silksong
+A
+Hormiga Salvaje
+boss
+2
+DEPendiente
+hollow
+B
+hornet silksong
+B
+hollow
+B
+Hormiga Salvaje
+LT
+A
+Hormiga Salvaje
+boss
+2
+DEPendiente
+hollow
+B
+Hormiga Salvaje
+B 
+hollow
+B
+hornet silksong
+D
+ampharos
+chimchar
+LT
+B
+ampharos
+B
+chimchar
+I
+ampharos
+B
+chimchar
+LT
+I
+ampharos
+I
+Solaris
+E
+Solaris
+D
+sarpullido
+ampharos
+E
+ampharos
+E
+sarpullido
+LD
+ampharos
+D
+ampharos
+sarpullido
+LD
+ampharos
+A
+ampharos
 pokemon
 0
 INDependiente
 -.-.-.-.-
 LT
-B
-ON_luces Z008
-I
-Camello
-B
-cyndaquil
-B
-Camello
-B
-presencia_S008
-B
-cierre_2025_10_6
-B
-Validacion_P001_exterior
-B
-apertura_P001
-LD
-Camello
-LT
-O
-cyndaquil
-I
-ON_luces Z008
-D
-ON_luces Z008
-Jesucristo
-B
-presencia_S008
-E
-Bale

@@ -1,105 +1,144 @@
 -----LISTADO: 0
 -----
-NO INTRODUCIDO: [ CHimchar -de-> cyndaquil ] --- oragután de fueguito --- ( 69 )
-INTRODUCIDO: [ cyndaquil ] --- Typloshion es mejor --- ( 1 )
-INTRODUCIDO: [ CHimchar -de-> cyndaquil ] --- orangután de fueguito --- ( 69 )
------LISTADO: 2
-[ CHimchar -de-> cyndaquil ;;; 0 ] --- orangután de fueguito --- ( 69 )
-[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 )
------
-****DEPENDIENTES: cyndaquil
-[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 ) ****
-[1 -> CHimchar -de-> cyndaquil ;;; 0 ] --- orangután de fueguito --- ( 69 ) ;;;;
-****FINAL dependientes -de-> cyndaquil
-INTRODUCIDO: [ Camello ] --- Camaleón --- ( 67 )
-CAMBIADO: [ CHimchar -de-> cyndaquil ;;; 0 ] --- chistorra al ascuas --- ( 67 )
-NO INTRODUCIDO: [ Rodrygo -de-> Fernando Torres ] --- espaghettis --- ( 10 )
-INTRODUCIDO: [ Iniesta ] --- Fuente Albilla no se toca --- ( 8 )
-NO BORRADO: la Mija Mal
-INTRODUCIDO: [ Fernando Torres ] --- Cortador de jamón profesional --- ( 3000 )
-INTENTANDO hacer depend.: Fernando Torres -de-> Iniesta
-LOCALIZADO: [ Iniesta --- 1 ] --- Fuente Albilla no se toca --- ( 8 )
-LOCALIZADO: [ Fernando Torres -de-> Iniesta ;;; 0 ] --- Cortador de jamón profesional --- ( 3000 )
-NO BORRADO: Iniesta
-LOCALIZADO: [ Fernando Torres -de-> Iniesta ;;; 0 ] --- Cortador de jamón profesional --- ( 3000 )
-BORRADO: Fernando Torres
-BORRADO: Iniesta
+INTRODUCIDO: [ chimchar ] --- oragután de fueguito --- ( 69 )
+INTRODUCIDO: [ ampharos ] --- Typloshion es mejor --- ( 1 )
+****DEPENDIENTES: ampharos
+[ ampharos --- 0 ] --- Typloshion es mejor --- ( 1 ) ****
+****FINAL dependientes -de-> ampharos
+INTRODUCIDO: [ sarpullido ] --- enfermedad --- ( 67 )
 -----LISTADO: 3
-[ CHimchar -de-> cyndaquil ;;; 0 ] --- chistorra al ascuas --- ( 67 )
-[ Camello --- 0 ] --- Camaleón --- ( 67 )
-[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 )
+[ ampharos --- 0 ] --- Typloshion es mejor --- ( 1 )
+[ chimchar --- 0 ] --- oragután de fueguito --- ( 69 )
+[ sarpullido --- 0 ] --- enfermedad --- ( 67 )
 -----
-IMPOSIBLE hacer depend.: cyndaquil	 -de-> CHimchar
------LISTADO: 3
-[ CHimchar -de-> cyndaquil ;;; 0 ] --- chistorra al ascuas --- ( 67 )
-[ Camello --- 0 ] --- Camaleón --- ( 67 )
-[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 )
+BORRADO: ampharos
+BORRADO: sarpullido
+-----LISTADO: 1
+[ chimchar --- 0 ] --- oragután de fueguito --- ( 69 )
 -----
-INTRODUCIDO: [ Hornet Silksong ] --- best indie --- ( 0 )
-INTRODUCIDO: [ Hollow -de-> Hornet Silksong ] --- knight --- ( 1 )
-INTRODUCIDO: [ Hormiga Salvaje -de-> Hollow ] --- boss --- ( 2 )
-NO BORRADO: Hornet Silksong
-NO BORRADO: Hollow
-BORRADO: Hormiga Salvaje
------LISTADO: 5
-[ CHimchar -de-> cyndaquil ;;; 0 ] --- chistorra al ascuas --- ( 67 )
-[ Camello --- 0 ] --- Camaleón --- ( 67 )
-[ Hollow -de-> Hornet Silksong ;;; 0 ] --- knight --- ( 1 )
-[ Hornet Silksong --- 1 ] --- best indie --- ( 0 )
-[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 )
------
-INTRODUCIDO: [ Hormiga Salvaje -de-> Hollow ] --- boss --- ( 2 )
-BORRADO: Hormiga Salvaje
-BORRADO: Hollow
-BORRADO: Hornet Silksong
-INTENTANDO hacer depend.: cyndaquil -de-> CHimchar
------LISTADO: 3
-[ CHimchar -de-> cyndaquil ;;; 1 ] --- chistorra al ascuas --- ( 67 )
-[ Camello --- 0 ] --- Camaleón --- ( 67 )
-[ cyndaquil -de-> CHimchar ;;; 1 ] --- Typloshion es mejor --- ( 1 )
------
-NO BORRADO: cyndaquil
-NO BORRADO: CHimchar
-INDEPENDIZADO: cyndaquil
-BORRADO: CHimchar
------LISTADO: 2
-[ Camello --- 0 ] --- Camaleón --- ( 67 )
-[ cyndaquil --- 0 ] --- Typloshion es mejor --- ( 1 )
------
-YA ERA INDepend.: cyndaquil
-NO INDEPENDIZADO: Solaris
-DESCONOCIDO: Solaris
-INTENTANDO hacer depend.: Camello -de-> cyndaquil
-INDEPendiente: cyndaquil
-DEPendiente: Camello
-****DEPENDIENTES: cyndaquil
-[ cyndaquil --- 1 ] --- Typloshion es mejor --- ( 1 ) ****
-[1 -> Camello -de-> cyndaquil ;;; 0 ] --- Camaleón --- ( 67 ) ;;;;
-****FINAL dependientes -de-> cyndaquil
-INTENTANDO hacer depend.: cyndaquil -de-> Camello
-****DEPENDIENTES: cyndaquil
-[ cyndaquil -de-> Camello ;;; 1 ] --- Typloshion es mejor --- ( 1 ) ****
-[1 -> Camello -de-> cyndaquil ;;; 1 ] --- Camaleón --- ( 67 ) ;;;;
-****FINAL dependientes -de-> cyndaquil
-NO INTRODUCIDO: [ cyndaquil ] --- pokemon --- ( 0 )
------LISTADO: 2
-[ Camello -de-> cyndaquil ;;; 1 ] --- Camaleón --- ( 67 )
-[ cyndaquil -de-> Camello ;;; 1 ] --- Typloshion es mejor --- ( 1 )
------
-NO BORRADO: ON_luces Z008
-INDEPENDIZADO: Camello
-BORRADO: cyndaquil
-BORRADO: Camello
-NO BORRADO: presencia_S008
-NO BORRADO: cierre_2025_10_6
-NO BORRADO: Validacion_P001_exterior
-NO BORRADO: apertura_P001
-****DEPENDIENTES: Camello
-****DESCONOCIDO
+BORRADO: chimchar
 -----LISTADO: 0
 -----
-NO LOCALIZADO: cyndaquil
-NO INDEPENDIZADO: ON_luces Z008
-IMPOSIBLE hacer depend.: ON_luces Z008 -de-> Jesucristo
-NO BORRADO: presencia_S008
-DESCONOCIDO: Bale
+INTRODUCIDO: [ chimchar ] --- oragután de fueguito --- ( 69 )
+INTRODUCIDO: [ ampharos ] --- Typloshion es mejor --- ( 1 )
+INTRODUCIDO: [ sarpullido ] --- enfermedad --- ( 67 )
+INTRODUCIDO: [ hornet silksong ] --- best indie --- ( 0 )
+INTRODUCIDO: [ hollow -de-> hornet silksong ] --- knight --- ( 1 )
+INTRODUCIDO: [ Hormiga Salvaje -de-> hollow ] --- boss --- ( 2 )
+-----LISTADO: 6
+[ Hormiga Salvaje -de-> hollow ;;; 0 ] --- boss --- ( 2 )
+[ ampharos --- 0 ] --- Typloshion es mejor --- ( 1 )
+[ chimchar --- 0 ] --- oragután de fueguito --- ( 69 )
+[ hollow -de-> hornet silksong ;;; 1 ] --- knight --- ( 1 )
+[ hornet silksong --- 1 ] --- best indie --- ( 0 )
+[ sarpullido --- 0 ] --- enfermedad --- ( 67 )
+-----
+NO BORRADO: hollow
+NO BORRADO: hornet silksong
+BORRADO: chimchar
+BORRADO: ampharos
+BORRADO: sarpullido
+-----LISTADO: 3
+[ Hormiga Salvaje -de-> hollow ;;; 0 ] --- boss --- ( 2 )
+[ hollow -de-> hornet silksong ;;; 1 ] --- knight --- ( 1 )
+[ hornet silksong --- 1 ] --- best indie --- ( 0 )
+-----
+INDEPENDIZADO: hollow
+BORRADO: Hormiga Salvaje
+BORRADO: hollow
+BORRADO: hornet silksong
+NO BORRADO: chimchar
+-----LISTADO: 0
+-----
+NO INTRODUCIDO: [ chimchar -de-> ampharos ] --- oragután de fueguito --- ( 69 )
+INTRODUCIDO: [ ampharos ] --- Typloshion es mejor --- ( 1 )
+INTRODUCIDO: [ chimchar -de-> ampharos ] --- orangután de fueguito --- ( 69 )
+-----LISTADO: 2
+[ ampharos --- 1 ] --- Typloshion es mejor --- ( 1 )
+[ chimchar -de-> ampharos ;;; 0 ] --- orangután de fueguito --- ( 69 )
+-----
+****DEPENDIENTES: ampharos
+[ ampharos --- 1 ] --- Typloshion es mejor --- ( 1 ) ****
+[1 -> chimchar -de-> ampharos ;;; 0 ] --- orangután de fueguito --- ( 69 ) ;;;;
+****FINAL dependientes -de-> ampharos
+INTRODUCIDO: [ sarpullido ] --- enfermedad --- ( 67 )
+CAMBIADO: [ chimchar -de-> ampharos ;;; 0 ] --- chistorra al ascuas --- ( 67 )
+NO INTRODUCIDO: [ rodrygo -de-> fernando torres ] --- espaghettis --- ( 10 )
+INTRODUCIDO: [ iniesta ] --- Fuente Albilla no se toca --- ( 8 )
+-----LISTADO: 4
+[ ampharos --- 1 ] --- Typloshion es mejor --- ( 1 )
+[ chimchar -de-> ampharos ;;; 0 ] --- chistorra al ascuas --- ( 67 )
+[ iniesta --- 0 ] --- Fuente Albilla no se toca --- ( 8 )
+[ sarpullido --- 0 ] --- enfermedad --- ( 67 )
+-----
+NO BORRADO: la Mija Mal
+INTRODUCIDO: [ fernando torres ] --- Cortador de jamón profesional --- ( 3000 )
+INTENTANDO hacer depend.: fernando torres -de-> iniesta
+LOCALIZADO: [ iniesta --- 1 ] --- Fuente Albilla no se toca --- ( 8 )
+LOCALIZADO: [ fernando torres -de-> iniesta ;;; 0 ] --- Cortador de jamón profesional --- ( 3000 )
+NO BORRADO: iniesta
+LOCALIZADO: [ fernando torres -de-> iniesta ;;; 0 ] --- Cortador de jamón profesional --- ( 3000 )
+BORRADO: fernando torres
+BORRADO: iniesta
+-----LISTADO: 3
+[ ampharos --- 1 ] --- Typloshion es mejor --- ( 1 )
+[ chimchar -de-> ampharos ;;; 0 ] --- chistorra al ascuas --- ( 67 )
+[ sarpullido --- 0 ] --- enfermedad --- ( 67 )
+-----
+IMPOSIBLE hacer depend.: ampharos	 -de-> chimchar
+-----LISTADO: 3
+[ ampharos --- 1 ] --- Typloshion es mejor --- ( 1 )
+[ chimchar -de-> ampharos ;;; 0 ] --- chistorra al ascuas --- ( 67 )
+[ sarpullido --- 0 ] --- enfermedad --- ( 67 )
+-----
+INTRODUCIDO: [ hornet silksong ] --- best indie --- ( 0 )
+INTRODUCIDO: [ hollow -de-> hornet silksong ] --- knight --- ( 1 )
+INTRODUCIDO: [ Hormiga Salvaje -de-> hollow ] --- boss --- ( 2 )
+NO BORRADO: hornet silksong
+NO BORRADO: hollow
+BORRADO: Hormiga Salvaje
+-----LISTADO: 5
+[ ampharos --- 1 ] --- Typloshion es mejor --- ( 1 )
+[ chimchar -de-> ampharos ;;; 0 ] --- chistorra al ascuas --- ( 67 )
+[ hollow -de-> hornet silksong ;;; 0 ] --- knight --- ( 1 )
+[ hornet silksong --- 1 ] --- best indie --- ( 0 )
+[ sarpullido --- 0 ] --- enfermedad --- ( 67 )
+-----
+INTRODUCIDO: [ Hormiga Salvaje -de-> hollow ] --- boss --- ( 2 )
+BORRADO: Hormiga Salvaje
+BORRADO: hollow
+BORRADO: hornet silksong
+INTENTANDO hacer depend.: ampharos -de-> chimchar
+-----LISTADO: 3
+[ ampharos -de-> chimchar ;;; 1 ] --- Typloshion es mejor --- ( 1 )
+[ chimchar -de-> ampharos ;;; 1 ] --- chistorra al ascuas --- ( 67 )
+[ sarpullido --- 0 ] --- enfermedad --- ( 67 )
+-----
+NO BORRADO: ampharos
+NO BORRADO: chimchar
+INDEPENDIZADO: ampharos
+BORRADO: chimchar
+-----LISTADO: 2
+[ ampharos --- 0 ] --- Typloshion es mejor --- ( 1 )
+[ sarpullido --- 0 ] --- enfermedad --- ( 67 )
+-----
+YA ERA INDepend.: ampharos
+NO INDEPENDIZADO: Solaris
+DESCONOCIDO: Solaris
+INTENTANDO hacer depend.: sarpullido -de-> ampharos
+INDEPendiente: ampharos
+DEPendiente: sarpullido
+****DEPENDIENTES: ampharos
+[ ampharos --- 1 ] --- Typloshion es mejor --- ( 1 ) ****
+[1 -> sarpullido -de-> ampharos ;;; 0 ] --- enfermedad --- ( 67 ) ;;;;
+****FINAL dependientes -de-> ampharos
+INTENTANDO hacer depend.: ampharos -de-> sarpullido
+****DEPENDIENTES: ampharos
+[ ampharos -de-> sarpullido ;;; 1 ] --- Typloshion es mejor --- ( 1 ) ****
+[1 -> sarpullido -de-> ampharos ;;; 1 ] --- enfermedad --- ( 67 ) ;;;;
+****FINAL dependientes -de-> ampharos
+NO INTRODUCIDO: [ ampharos ] --- pokemon --- ( 0 )
+-----LISTADO: 2
+[ ampharos -de-> sarpullido ;;; 1 ] --- Typloshion es mejor --- ( 1 )
+[ sarpullido -de-> ampharos ;;; 1 ] --- enfermedad --- ( 67 )
+-----
