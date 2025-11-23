@@ -10,7 +10,8 @@
  * Los valores del TAD representan colecciones de elementos formados como tuplas de la forma (I, V, -, numDepend) 
  * o bien (I, V, dep, numDepend). A los elementos con forma (I, V, -, NumDepend) los llamaremos  en general 
  * ‘elementos independientes’, mientras que a los elementos con forma (I, V, dep, numDepend), los llamaremos en
- * general ‘elementos dependientes’. En la colección no podrá haber dos elementos con el mismo I.
+ * general ‘elementos dependientes’. En la colección no podrá haber dos elementos con el mismo I, que llamaremos
+ * identificador, pero si con mismo V, de denotaremos como valor.
  * Todas las funciones de la colcección tienen coste lineal O(n) salvo crear, tamanyo y esVacia que tienen coste
  * constante. Todas las funciones del iterador tienen coste constante.
  * Igualmente, el coste en memoria de esta implementación será O(N).
@@ -30,22 +31,21 @@ template<typename I,typename V> struct colecInterdep;
 template<typename I,typename V> void crear(colecInterdep<I,V>& c);
 
 
-/* Devuelve el número de elementos que hay en una colección c en forma de entero.
+/* Dada una colección, devuelve el número de elementos que hay en la colección en forma de entero.
 */
 template<typename I,typename V> int tamanyo(colecInterdep<I,V>& c);
 
 
-/* Devuelve en forma de booleano si la colección c es vacía, es decir, no tiene ningún elemento.
+/* Dada na colección c, devuelve en forma de booleano si la colección es vacía, es decir, no tiene ningún elemento.
  * Devuelve TRUE si y solo si esta es vacía y false si no lo es.
 */
 template<typename I,typename V> bool esVacia(colecInterdep<I,V>& c);
 
 
-/* Devuelve en forma de booleano TRUE si y solo si en la colección c hay un elemento con el identificador aportado.
- * Devuelve FALSE en caso contrario.
+/* Dada una colección c, devuelve en forma de booleano TRUE si y solo si en esta hay un elemento con el identificador
+ * aportado. Devuelve FALSE en caso contrario.
 */
 template<typename I,typename V> bool existe(const I& id, colecInterdep<I,V>& c);
-
 
 
 /* Dados un identificador I, una colección c y un booleano depende, devuelve en forma de booleano TRUE si y solo si 
@@ -55,67 +55,47 @@ template<typename I,typename V> bool existe(const I& id, colecInterdep<I,V>& c);
 template<typename I,typename V> bool existeDepOIndep(const I& id, colecInterdep<I,V>& c, bool& depende);
 
 
-/* Si no se encuentra un elemento con el identificador id en la colección c devuelve el resultante de añadir el elemento 
- * independiente (id,v,-,0) a la colección c. En caso de que exista un elemento con tal identificador devuelve una
- * igual a c sin modificar.
+/* Dados una colección c, un identificador id y un valor v, si no se encuentra un elemento con el identificador id 
+ * en la colección c devuelve el resultante de añadir el elemento independiente (id,v,-,0) a la colección c. En caso
+ * de que exista un elemento con tal identificador devuelve una igual a c sin modificar.
 */
 template<typename I,typename V> void anyadirIndependiente(colecInterdep<I,V>& c, const I& id, const V& v);
 
 
-/* Si no se encuentra un elemento con identificador id en la colección y existe un elemento con identificador super 
- * devuelve el resultante de añadir el elemento dependiente (id,v,super,0) a la colección c e incrementar en 1 el 
- * número de elementos dependientes del elemento con identificador super. En caso de que exista un elemento con tal 
- * identificador o no exista un elemento con identificador super devuelve una colección igual a c sin modificar.
+/* Dados una colección c, un identificador id, un valor v y un identificador super, si no se encuentra un elemento con
+ * identificador id en la colección y existe un elemento con identificador super devuelve el resultante de añadir el 
+ * elemento dependiente (id,v,super,0) a la colección c e incrementar en 1 el número de elementos dependientes del elemento 
+ * con identificador super. Si existe(id, c) o !existe(super, c) devuelve una colección igual a c sin modificar.
 */
 template<typename I,typename V> void anyadirDependiente(colecInterdep<I,V>& c, const I& id, const V& v, const I& super);
 
 
-/* Si existe un elemento con identificador id en la colección c y existe un elemento con identificador super incrementa
- * en 1 el el número de elementos dependientes del elemento con identificador super y hace dependiente al elemento
- * con identificador id del de super. En caso de que el elemento con identificador id dependiese de otro elemento previamente,
- * decrementa en 1 el numero de elementos dependientes de dicho elemento del que dependia. Si no existe un elemento 
- * con el identificador id en la colección o no existe un elemento con identificador super devuelve una colección igual
- * a c sin modificar.
+/* Dados una colección c, un identificador id y un identificador super, si existe(id, c) y existe(super, c) incrementa en 
+ * 1 el número de elementos dependientes del elemento con identificador super y hace dependiente al elemento con identificador
+ * id del de super. En caso de que el elemento con identificador id dependiese de otro elemento previamente, decrementa en 
+ * 1 el numero de elementos dependientes de dicho elemento del que dependia. Si !existe(id, c) o !existe(super, c) devuelve 
+ * una colección igual a c sin modificar.
 */
 template<typename I,typename V> void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super);
 
 
-/* Si existe un elemento con identificador id en la colección c y este es dependiente de otro elemento decrementa 
- * en 1 el número de elementos dependientes del elemento del que dependía y hacer independiente el elemento con identificador 
- * id. Si no existe un elemento con el identificador id en la colección o este ya era un elemento con independiente
- * super devuelve una colección igual a c sin modificar.
+/* Dados una colección c y un identificador id, si existe(id, c) y este es dependiente de otro elemento decrementa en 1 el 
+ * número de elementos dependientes del elemento del que dependía y hacer independiente el elemento con identificador id.
+ * Si no existe un elemento con el identificador id en la colección o este ya era un elemento con independiente super devuelve
+ * una colección igual a c sin modificar.
 */
 template<typename I,typename V> void hacerIndependiente(colecInterdep<I,V>& c, const I& id);
 
 
-/* Si existe un elemento con el identificador id en la colección c actualiza su valor v por el valor nuevo y devuelve
- * en forma de booleano TRUE si y solo si se ha actualizado correctamente. Devuelve FALSE si no se ha podido actualizar 
+/* Dados una colección c, un identificador id y un valor nuevo, si existe(id, c) actualiza su valor v por el valor nuevo y
+ * devuelve en forma de booleano TRUE si y solo si se ha actualizado correctamente. Devuelve FALSE si no se ha podido actualizar 
  * por la inexistencia del elemento.
 */
 template<typename I,typename V> bool actualizarVal(colecInterdep<I,V>& c, const I& id, const V& nuevo);
 
 
-/* Si existe un elemento con identificador id en la colección c le proporciona a val el valor v del elemento y devuelve 
- * en forma de booleano TRUE si y solo si el valor val se ha actualizado correctamente. Devuelve FALSE si no se ha
- * podido actualizar por la inexistencia del elemento en la colección.
-*/
-template<typename I,typename V> bool obtenerVal(const I& id, colecInterdep<I,V>& c, V& val);
-
-
-/* Si existe un elemento con identificador id en la colección le proporciona a sup el identificador del elemento del 
- * que depende el elemento con identidicador id y devuelve en forma de booleano TRUE si y solo si el identificador sup
- * se ha actualizado correctamente. Devuelve FALSE si no se ha podido actualizar por la inexistencia del elemento.
-*/
-template<typename I,typename V> bool obtenerSupervisor(const I& id, colecInterdep<I,V>& c, I& sup);
-
-
-/* Si existe un elemento con identificador id en la colección c devuelve en forma de entero el numero de elementos que 
- * dependen del elemento. Devuelve -1 si existe tal elemento en la coleccion c.
-*/
-template<typename I,typename V> int obtenerNumDependientes(const I& id, colecInterdep<I,V>& c);
-
-
-/* Si existe un elemento con identificador id en la colección le proporciona a val el valor v del elemento y a numDep el
+/* Dados un identificador id, una colección c, un valor val, un identificador sup, un entero numDeop y un booleano depende,
+ * si existe un elemento con identificador id en la colección le proporciona a val el valor v del elemento y a numDep el
  * número de elementos que dependen de este. Si el elemento es dependiente de otro le proporciona a sup el identificador 
  * del elemento del que depende y le asigna al booleano depende TRUE. Si este elemento es independiente sup no se modifica
  * y le asigna al booleano depende FALSE.
@@ -203,9 +183,6 @@ struct colecInterdep{
 	friend void hacerDependiente<I,V>(colecInterdep<I,V>& c,const I& id, const I& super);
 	friend void hacerIndependiente<I,V>(colecInterdep<I,V>& c, const I& id);
 	friend bool actualizarVal<I,V>(colecInterdep<I,V>& c, const I& id, const V& v);
-	friend bool obtenerVal<I,V>(const I& id, colecInterdep<I,V>& c, V& val);
-	friend bool obtenerSupervisor<I,V>(const I& id, colecInterdep<I,V>& c, I& sup);
-	friend int obtenerNumDependientes<I,V>(const I& id, colecInterdep<I,V>& c);
 	friend bool obtenerDatos<I,V>(const I& id, colecInterdep<I,V>& c, V& val, I& sup, int& numDep, bool& depende);
 	friend void borrar<I,V>(const I& id, colecInterdep<I,V>& c);
 
@@ -261,74 +238,7 @@ struct colecInterdep{
 };
 
 
-//OPERACIONES
-
-/* Dada una colección c, devuelve el número de elementos que hay en esta colección en forma de entero.
-*/
-template<typename I,typename V> 
-void crear(colecInterdep<I,V>& c){
-	c.tam=0;
-	c.raiz=nullptr;
-	crearVacia(c.itr);
-
-}
-
-
-/* Dada una colección c, devuelve el número de elementos que hay en esta en forma de entero.
-*/
-template<typename I,typename V>
-int tamanyo(colecInterdep<I,V>& c){
-	return c.tam;
-
-}
-
-
-/* Dada na colección c, devuelve en forma de booleano si la colección es vacía, es decir, no tiene ningún elemento.
- * Devuelve TRUE si y solo si esta es vacía, es decir c.raiz apunta a nullptr y false si no lo es.
-*/
-template<typename I,typename V>
-bool esVacia(colecInterdep<I,V>& c){
-	return c.raiz == nullptr;
-}
-
-
-
-
-
-/* Dados un identificador id y una colección c, devuelve en forma de booleano TRUE si y solo si en la colección hay un 
- * elemento con el identificador aportado. Devuelve FALSE en caso contrario.
-*/
-template<typename I,typename V> 
-bool existe(const I& id, colecInterdep<I,V>& c){
-	typename colecInterdep<I,V>:: Nodo* pAux = buscar<I,V>(c.raiz, id);
-	return pAux != nullptr;
-}
-
-
-
-/* Dado un identificador id pasasdo por entrada,una colección c pasada por referencia y un booleano depende pasado
- * por referencia,devuelve en forma de booleano TRUE si y solo si en la colección c hay un elemento con el identificador 
- * aportado y asigna al booleano depende el valor true si al encontrarlo el puntero depende no es nullptr y se le
- * asigna el valor FALSE si es igual a nullptr. Devuelve FALSE en caso contrario.
-*/
-template<typename I,typename V>
-bool existeDepOIndep(const I& id, colecInterdep<I,V>& c, bool& depende){
-	typename colecInterdep<I,V>:: Nodo* pAux = buscar<I,V>(c.raiz, id);
-	if(pAux!=nullptr){
-		if(pAux->dep==nullptr){
-			depende = false;
-		}
-		else{
-			depende = true;
-		}
-		return true;
-	}
-	else{
-		return false;
-	}
-}
-
-
+//OPERACIONES AUX
 /* Dado un nodo buscado pasado por referencia y un identificador id pasado por entrada,procedemos a comprobar 
  * la existencia de un elemento con identificador id ,si encontramos este nodo devuelve el nodo buscado con valor
  * el nodo actual,si no devuelve nodo buscado con valor nullptr indicandonos que este elemento no existe.
@@ -413,9 +323,98 @@ void anyadirDependienteRec(typename colecInterdep<I,V>::Nodo* &c, const I& id, c
 }
 
 
-/* Si no se encuentra un elemento con el identificador id en la colección c devuelve el resultante de añadir el elemento 
- * independiente (id,v,-,0) a la colección c. En caso de que exista un elemento con tal identificador devuelve una
- * igual a c sin modificar.
+/* Dado dos nodos pasados por referencia pBuscado y pMax.Procede a llegar al último hijo derecho,copiando el nodo en pMax y 
+ * modificando pBuscado como hijo izquierdo del nodo actual, y dejando al hijo izquierdo en nullptr.Devolviendo pMax como el 
+ * máximo nodo. 
+*/
+template<typename I,typename V>
+void desengancharMaximo(typename colecInterdep<I,V>::Nodo* &pBuscado, typename colecInterdep<I,V>::Nodo* &pMax){
+	if(pBuscado->der==nullptr){//Es el último hijo derecho
+		pMax=pBuscado; //Copia en pMax el nodo actual
+		pBuscado=pBuscado->izq;//Pone a pBuscado como el hijo izquierdo
+		pMax->izq=nullptr;
+	}else{
+		desengancharMaximo<I,V>(pBuscado->der,pMax);//Llamada recursiva para llegar al ultimo hijo
+	}
+}
+
+
+
+
+
+
+//OPERACIONES
+/* Dada una colección c, devuelve el número de elementos que hay en esta colección en forma de entero.
+*/
+template<typename I,typename V> 
+void crear(colecInterdep<I,V>& c){
+	c.tam=0;
+	c.raiz=nullptr;
+	crearVacia(c.itr);
+
+}
+
+
+/* Dada una colección c, devuelve el número de elementos que hay en esta en forma de entero.
+*/
+template<typename I,typename V>
+int tamanyo(colecInterdep<I,V>& c){
+	return c.tam;
+
+}
+
+
+/* Dada na colección c, devuelve en forma de booleano si la colección es vacía, es decir, no tiene ningún elemento.
+ * Devuelve TRUE si y solo si esta es vacía, es decir c.raiz apunta a nullptr y false si no lo es.
+*/
+template<typename I,typename V>
+bool esVacia(colecInterdep<I,V>& c){
+	return c.raiz == nullptr;
+}
+
+
+
+
+
+/* Dados un identificador id y una colección c, devuelve en forma de booleano TRUE si y solo si en la colección hay un 
+ * elemento con el identificador aportado. Devuelve FALSE en caso contrario.
+*/
+template<typename I,typename V> 
+bool existe(const I& id, colecInterdep<I,V>& c){
+	typename colecInterdep<I,V>:: Nodo* pAux = buscar<I,V>(c.raiz, id);
+	return pAux != nullptr;
+}
+
+
+
+/* Dado un identificador id pasasdo por entrada,una colección c pasada por referencia y un booleano depende pasado
+ * por referencia,devuelve en forma de booleano TRUE si y solo si en la colección c hay un elemento con el identificador 
+ * aportado y asigna al booleano depende el valor true si al encontrarlo el puntero depende no es nullptr y se le
+ * asigna el valor FALSE si es igual a nullptr. Devuelve FALSE en caso contrario.
+*/
+template<typename I,typename V>
+bool existeDepOIndep(const I& id, colecInterdep<I,V>& c, bool& depende){
+	typename colecInterdep<I,V>:: Nodo* pAux = buscar<I,V>(c.raiz, id);
+	if(pAux!=nullptr){
+		if(pAux->dep==nullptr){
+			depende = false;
+		}
+		else{
+			depende = true;
+		}
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+
+
+
+/* Dados una colección c y un identificador id, si no se encuentra un elemento con el identificador id en la colección
+ * c devuelve el resultante de añadir el elemento independiente (id,v,-,0) a la colección c. En caso de que exista un
+ * elemento con tal identificador devuelve una igual a c sin modificar.
 */
 template<typename I,typename V>
 void anyadirIndependiente(colecInterdep<I,V>& c, const I& id, const V& v){
@@ -428,16 +427,16 @@ void anyadirIndependiente(colecInterdep<I,V>& c, const I& id, const V& v){
 
 
 
-/* Si no se encuentra un elemento con identificador id en la colección y existe un elemento con identificador super 
- * devuelve el resultante de añadir el elemento dependiente (id,v,super,0) a la colección c e incrementar en 1 el 
- * número de elementos dependientes del elemento con identificador super. En caso de que exista un elemento con tal 
- * identificador o no exista un elemento con identificador super devuelve una colección igual a c sin modificar.
+/* Dados una colección c, un identificador id, un valor v y un identificador super, si no se encuentra un elemento con
+ * identificador id en la colección y existe un elemento con identificador super devuelve el resultante de añadir el 
+ * elemento dependiente (id,v,super,0) a la colección c e incrementar en 1 el número de elementos dependientes del elemento 
+ * con identificador super. Si existe(id, c) o !existe(super, c) devuelve una colección igual a c sin modificar.
 */
 template<typename I,typename V>
 void anyadirDependiente(colecInterdep<I,V>& c, const I& id, const V& v, const I& super){
 	if(!esVacia(c)){	//Como tiene que tener super la colección tiene que tener algún elemento
 		typename colecInterdep<I,V>:: Nodo* pSup = buscar<I,V>(c.raiz,super);
-		if(pSup!=nullptr){	//Si es nullptr es poque tiene punto de insercion, sino se debe a que ya existe
+		if(pSup!=nullptr){	//Si es nullptr es poque tiene punto de inserción, sino se debe a que ya existe
 			bool anyadido = false;
 			anyadirDependienteRec<I,V>(c.raiz, id, v, pSup,anyadido);
 			if(anyadido){
@@ -449,12 +448,11 @@ void anyadirDependiente(colecInterdep<I,V>& c, const I& id, const V& v, const I&
 
 
 
-/* Si existe un elemento con identificador id en la colección c y existe un elemento con identificador super incrementa
- * en 1 el el número de elementos dependientes del elemento con identificador super y hace dependiente al elemento
- * con identificador id del de super (apuntando con dep a super). En caso de que el elemento con identificador id dependiese 
- * de otro elemento previamente, decrementa en 1 el numero de elementos dependientes de dicho elemento del que dependia. Si no 
- * existe un elemento con el identificador id en la colección o no existe un elemento con identificador super devuelve una colección
- * igual a c sin modificar.
+/* Dados una colección c, un identificador id y un identificador super, si existe(id, c) y existe(super, c) incrementa en 
+ * 1 el número de elementos dependientes del elemento con identificador super y hace dependiente al elemento con identificador
+ * id del de super. En caso de que el elemento con identificador id dependiese de otro elemento previamente, decrementa en 
+ * 1 el numero de elementos dependientes de dicho elemento del que dependia. Si !existe(id, c) o !existe(super, c) devuelve 
+ * una colección igual a c sin modificar.
 */
 template<typename I,typename V>
 void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super){
@@ -464,7 +462,7 @@ void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super){
 			typename colecInterdep<I,V>:: Nodo* pAux2= buscar<I,V>(c.raiz,super);
 			if(pAux1 != nullptr){	//que existe
 				if(pAux2!=nullptr){	//que existe
-					if(pAux1->dep!=nullptr){
+					if(pAux1->dep!=nullptr){	//Si el puntero que apunta a dep es distinto de nill dependía de otro previamente
 						pAux1->dep->numDepend--;
 					}
 					pAux1->dep=pAux2;
@@ -477,17 +475,17 @@ void hacerDependiente(colecInterdep<I,V>& c, const I& id, const I& super){
 
 
 
-/* Si existe un elemento con identificador id en la colección c y este es dependiente de otro elemento decrementa 
- * en 1 el número de elementos dependientes del elemento del que dependía y hacer independiente el elemento con identificador 
- * id (haciendo que su puntero a dep sea igual a nullptr). Si no existe un elemento con el identificador id en la colección 
- * o este ya era un elemento con independiente super devuelve una colección igual a c sin modificar.
+/* Dados una colección c y un identificador id, si existe(id, c) y este es dependiente de otro elemento decrementa en 1 el 
+ * número de elementos dependientes del elemento del que dependía (haciendo que su puntero dep apunte a nullptr) y hacer independiente 
+ * el elemento con identificador id. Si no existe un elemento con el identificador id en la colección o este ya era un elemento 
+ * con independiente super devuelve una colección igual a c sin modificar.
 */
 template<typename I,typename V>
 void hacerIndependiente(colecInterdep<I,V>& c, const I& id){
 	if(!esVacia(c)){
 		typename colecInterdep<I,V>:: Nodo* pAux1 = buscar<I,V>(c.raiz,id);
 		if(pAux1!=nullptr){ //que existe
-			if(pAux1->dep!=nullptr){
+			if(pAux1->dep!=nullptr){	//Si no es nullptr es que es dependiente
 				pAux1->dep->numDepend--;
 				pAux1->dep=nullptr;
 			}
@@ -499,9 +497,9 @@ void hacerIndependiente(colecInterdep<I,V>& c, const I& id){
 
 
 
-/* Si existe un elemento con el identificador id en la colección c actualiza el valor del puntero que apunta a valor valor
- * por el de nuevo y devuelve en forma de booleano TRUE si y solo si se ha actualizado correctamente. Devuelve FALSE si no 
- * se ha podido actualizar por la inexistencia del elemento.
+/* Dados una colección c, in identificaor id, y un valor nuevo, si existe un elemento con el identificador id en la colección 
+ * actualiza el valor del puntero que apunta a valor por el de nuevo y devuelve en forma de booleano TRUE si y solo si se ha 
+ * actualizado correctamente. Devuelve FALSE si no se ha podido actualizar por la inexistencia del elemento.
 */
 template<typename I,typename V>
 bool actualizarVal(colecInterdep<I,V>& c, const I& id, const V& nuevo){
@@ -516,61 +514,9 @@ bool actualizarVal(colecInterdep<I,V>& c, const I& id, const V& nuevo){
 }
 
 
-/* Si existe un elemento con identificador id en la colección c le proporciona a val el valor v del elemento y devuelve 
- * en forma de booleano TRUE si y solo si el valor val se ha actualizado correctamente con el valor del puntero del elemento
- * que apunta a valor. Devuelve FALSE si no se ha podido actualizar por la inexistencia del elemento en la colección.
-*/
-template<typename I,typename V>
-bool obtenerVal(const I& id, colecInterdep<I,V>& c, V& val){	
-	typename colecInterdep<I,V>:: Nodo* pAux = buscar<I,V>(c.raiz, id);
-	if(pAux!=nullptr){	//existe
-		val = pAux -> valor;
-		return true;
-	}
-	else{
-		return false;
-	}
-}
 
-
-/* Si existe un elemento con identificador id en la colección le proporciona a sup el identificador del elemento del 
- * que depende el elemento con identidicador id, obtenido con el puntero que apunta a dep->ident y devuelve en forma de 
- * booleano TRUE si y solo si el identificador sup se ha actualizado correctamente. Devuelve FALSE si no se ha podido 
- * actualizar por la inexistencia del elemento.
-*/
-template<typename I,typename V>
-bool obtenerSupervisor(const I& id, colecInterdep<I,V>& c, I& sup){
-	typename colecInterdep<I,V>:: Nodo* pAux = buscar<I,V>(c.raiz, id);
-	if(pAux!=nullptr){	//existe
-		if(pAux -> dep != nullptr){
-			sup = pAux -> dep -> ident;
-		}
-		else{
-			return false;
-		}
-	}
-	else{
-		return false;
-	}
-}
-
-
-/* Si existe un elemento con identificador id en la colección c devuelve en forma de entero el numero de elementos que 
- * dependen del elemento obtenido con el puntero que apunta a numDepend. Devuelve -1 si existe tal elemento en la coleccion c.
-*/
-template<typename I,typename V>
-int obtenerNumDependientes(const I& id, colecInterdep<I,V>& c){
-	typename colecInterdep<I,V>:: Nodo* pAux = buscar<I,V>(c.raiz, id);
-	if(pAux!=nullptr){	//existe
-		return pAux -> numDepend;
-	}
-	else{
-		return -1;
-	}	
-}
-
-
-/* Si existe un elemento con identificador id en la colección le proporciona a val el valor v del elemento (obtenido con 
+/* Dados un identificador id, una colección c, un valor val, un identificador sup, un entero numDeop y un booleano depende,
+ * si existe un elemento con identificador id en la colección le proporciona a val el valor v del elemento (obtenido con 
  * el puntero que apunta a valor) y a numDep el número de elementos que dependen de este (obtenido con el puntero que 
  * apunta a numDepend). Si el elemento es dependiente de otro le proporciona a sup el identificador del elemento del que
  * depende (obtenido con el puntero que apunta a dep->ident) y le asigna al booleano depende TRUE. Si este elemento es 
@@ -598,23 +544,6 @@ bool obtenerDatos(const I& id, colecInterdep<I,V>& c, V& val, I& sup, int& numDe
 	}
 }
 
-
-
-
-/* Dado dos nodos pasados por referencia pBuscado y pMax.Procede a llegar al último hijo derecho,copiando el nodo en pMax y 
- * modificando pBuscado como hijo izquierdo del nodo actual, y dejando al hijo izquierdo en nullptr.Devolviendo pMax como el 
- * máximo nodo. 
-*/
-template<typename I,typename V>
-void desengancharMaximo(typename colecInterdep<I,V>::Nodo* &pBuscado, typename colecInterdep<I,V>::Nodo* &pMax){
-	if(pBuscado->der==nullptr){//Es el último hijo derecho
-		pMax=pBuscado; //Copia en pMax el nodo actual
-		pBuscado=pBuscado->izq;//Pone a pBuscado como el hijo izquierdo
-		pMax->izq=nullptr;
-	}else{
-		desengancharMaximo<I,V>(pBuscado->der,pMax);//Llamada recursiva para llegar al ultimo hijo
-	}
-}
 
 
 /* Dado un identificador pasado por entrada id y una colección pasada por referencia c.Si existe un elemento con el identificador id en la colección c y no tiene elementos dependientes (numDepend es 0) 
@@ -673,18 +602,15 @@ void borrar(const I& id, colecInterdep<I,V>& c){
 
 //ITERADOR
 /* Las ocho operaciones siguientes conforman un iterador interno para la colección: 
- * Este iterador permitirá visitar los elementos almacenados en la colección empezando por la raiz elemento (el
- * de menor identificador) y acabando con el último elemento (el de mayor identificador).
- * Si el puntero itr de la colección tiene valor nullptr entonces no existe elemento pendiente por visitar (ya se 
- * han visitado todos los elementos), en caso contrario el puntero apunta a la Nodo cuyo dato es el siguiente 
- * elemento a visitar.
+ * Este iterador permitirá visitar los elementos almacenados en la colección en Inorden.
+ * Si la pila del itr de la colección es vacía  no existe elemento pendiente por visitar (ya se han visitado todos
+ * los elementos), en caso contrario el puntero apunta a la Nodo cuyo dato es el siguiente elemento a visitar.
 */
 
 
 
-
-
-/* Inicia el iterador para que el siguiente elemento a visitar sea la raiz elemento de la colección c, si existe.
+/* Inicia el iterador para que el siguiente elemento a visitar sea el hijo más izquierdo (elemento con identificador más 
+ * pequeño o la ráiz en caso de que no tenga hijo izquierdo) de la colección c, si existe.
 */
 template<typename I,typename V>
 void iniciarIterador(colecInterdep<I,V> &c){
@@ -820,7 +746,8 @@ int siguienteNumDependientes(colecInterdep<I,V>& c){
 
 
 /* Devuelve en forma de booleano TRUE si existen elementos por visitar en la colección c y hace que el iterador avance para
- * visitar el siguiente elemento de la colección. Devuelve FALSE en caso contrario y no avanza.
+ * visitar el siguiente elemento de la colección, desapilando el ya visitado y comprobando si tiene que apilar, en caso de que 
+ * exista, la rama del hijo derecho. Devuelve FALSE en caso contrario y no avanza.
 */
 template<typename I,typename V>
 bool avanza(colecInterdep<I,V>& c){
