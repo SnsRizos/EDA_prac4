@@ -1,6 +1,6 @@
 /* Mijayl Mandzyak Melnyk 935521 Hector Manzano Miranda 926029*/
 #include "colecInterdep.hpp"
-#include "evento.hpp"
+#include "tarea.hpp"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -234,9 +234,96 @@ void leerInstrucciones(colecInterdep<string,evento>colec){
 }
 
 
+void instruccion(const string inst, colecInterdep<string,tarea>colec){
+	string ident, nombre, desc, uni;
+	double esti, emple;
+	int tam;
+	tarea t;
+	while(inst!="FIN")
+		if(inst=="A"){	//anyadir t
+			cout << "Identificador de la tarea: ";
+			cin >> ident;
+			cout << "Nombre de la tarea: ";
+			cin >> nombre;
+			cout << "Descripción de la tarea: ";
+			cin >> desc;
+			cout << "Unidad de tiempo de la tarea: ";
+			cin >> uni;
+			crearTarea(nombre, desc, uni, t);
+			tam = tamanyo(colec);
+			anyadirIndependiente(colec,id,);
+			if(tam==tamanyo(colec)){
+				cout << "NO INTRODUCIDA, YA EXISTE UNA TAREA CON ESE IDENTIFICADOR"
+			}
+			cout << "INTRODUCIDA\n"
+		}
+		else if(inst=="D"){	//hacer dep
+			string ident2;
+			cout << "Identificador de la tarea 1: ";
+			cin >> ident;
+			cout << "Identificador de la tarea 2: ";
+			cin >> ident2;
+			if(existe(ident,colec) && existe(ident2,colec)){	
+				hacerDependiente(colec,ident,ident2);
+				cout <<"INTENTANDO hacer depend.\n";	
+			}else{
+				cout <<"IMPOSIBLE hacer depend.\n";
+			}
+
+		}
+		else if(inst=="I"){	//hacer ind
+			cout << "Identificador de la tarea: ";
+			cin >> ident;
+			bool esDep;
+			if(existeDepOIndep(ident,colec,esDep)){
+				if(!esDep){
+					s <<"YA ERA INDepend.: ";
+				}else{
+					hacerIndependiente(colec,ident);
+					s <<"INDEPENDIZADO: ";
+				}
+			}else{
+					s <<"NO INDEPENDIZADO: ";
+			} 
+		}
+		else if(inst=="C"){	//cambiar info t
+			cout << "Identificador de la tarea: ";
+			cin >> ident;
+			char cambio;
+			if(existe(ident,colcec)){
+				"Nuevo tiempo estimado: "
+			}
+			else{
+				cout << "NO EXISTE TAREA CON ESE IDENTIFICADOR\n";
+			}
+		}
+		else if(inst=="LD"){//info tarea
+
+		}
+		else if(inst=="B"){	//borrar
+
+		}
+		else if(inst=="LT"){//listar colección
+
+		}
+		else{
+			cout << "Instrucción no reconocida\n";
+			cout << "A: añadir nueva tarea\nD: Hacer que tarea1 pasa a ser prerrequisito directo de tarea2\n"
+				<< "I: Hacer que tarea no sea prerrequisito de nadie\nC: Cambiar informacion de una tarea\n"
+				<< "LD: Mostrar información de una tarea y de todas las que son prerrequisito de esta\n"
+				<< "B: Borrar tarea\n LT: Mostrar colección\n";
+		}
+		cin >> inst;
+}
+
 
 int main(){
-	colecInterdep<string,evento> bolsa;
+	colecInterdep<string,tarea> bolsa;
 	crear(bolsa);
-	leerInstrucciones(bolsa);
+	string instruccion;
+	cout << "A: añadir nueva tarea\nD: Hacer que tarea1 pasa a ser prerrequisito directo de tarea2\n"
+				<< "I: Hacer que tarea no sea prerrequisito de nadie\nC: Cambiar informacion de una tarea\n"
+				<< "LD: Mostrar información de una tarea y de todas las que son prerrequisito de esta\n"
+				<< "B: Borrar tarea\n LT: Mostrar colección\n";
+	cin >> instruccion;
 }
