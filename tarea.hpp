@@ -1,55 +1,90 @@
 /* Mijayl Mandzyak Melnyk 935521 Hector Manzano Miranda 926029
 */
 
-#ifndef EVENTO_HPP
-#define EVENTO_HPP
+#ifndef TAREA_HPP
+#define TAREA_HPP
 
 #include<iostream>
 using namespace std;
 
-// PREDECLARACION DEL TAD evento (inicio INTERFAZ)
+// PREDECLARACION DEL TAD tarea (inicio INTERFAZ)
 
-/* Los valores del TAD evento representarán tuplas formadas como:
+/* Los valores del TAD tarea representarán tuplas formadas como:
  (descripción, prioridad) siendo la descripción una cadena y la prioridad un número natural.}
 */
-struct evento;
-/* Dada una cadena descripcion, un entero prioridad, 
-devuelve un evento e con esos datos. 
+struct tarea;
+
+/* Dada una cadena nombre,una cadena descripcion,una cadena unidad,un real tempEst, 
+y una tarea t devuelve un tarea e con esos datos. 
 */
-void crearEvento(string descrip,int prio, evento& e);
+void crearTarea(string nom,string descripc,string unidad,double tempEst,tarea& t);
 
-/* Dado un evento e, devuelve la cadena correspondiente a la descripción de e. 
+/* Dado un tarea t, devuelve la cadena correspondiente al nombre de t. 
 */
-string descripcion(const evento& e);
+string nombre(const tarea& t);
 
-/* Dado un evento e y una cadena nueva, devuelve el evento e sustituyendo su antigua descripcion por nuevo. 
+/* Dado un tarea t, devuelve la cadena correspondiente a la descripción de t. 
 */
-void cambiarDescripcion( evento& e,string nuevo);
+string descripcion(const tarea& t);
 
-/* Dado un evento e, devuelve el entero correspondiente a la prioridad del evento e 
+/* Dado un tarea t, devuelve la cadena correspondiente a la unidad de t. 
 */
-int suPrioridad(const evento& e);
+string unidad(const tarea& t);
 
-/* Dado un evento e y una entero pri, devuelve el evento e sustituyendo su antigua prioridad por pri. 
+/* Dado un tarea t, devuelve el real correspondiente al tiempoEstimación de t. 
 */
-void cambiarPrioridad(evento& e, int pri); 
+double estimacion(const tarea& t);
+
+/* Dado un tarea t, devuelve el real correspondiente al tiempoEmpleado de t. 
+*/
+double invertido(const tarea& t);
+
+/* Dado una tarea t y una cadena newname, devuelve la tarea t sustituyendo su antiguo nombre  por newname. 
+*/
+void cambiarNombre( tarea& t,string newname);
+
+/* Dado una tarea t y una cadena newdescrip, devuelve la tarea t sustituyendo su antigua descripción por newdescrip. 
+*/
+void cambiarDescripcion(tarea& t,string newdescrip);
+
+/* Dado una tarea t y una cadena newunit, devuelve la tarea t sustituyendo su antigua unidad  por newunit. 
+*/
+void cambiarUnidad(tarea& t,string newunit);
+
+/* Dado una tarea t y una real newesti, devuelve la tarea t sustituyendo su antiguo tiempoEstimado  por newesti. 
+*/
+bool cambiarTiempoEstimado(tarea& t,double newesti);
+
+/* Dado una tarea t y una real newempl, devuelve la tarea t sustituyendo su antiguo tiempoEstimado  por newesti. 
+*/
+bool cambiarTiempoEmpleado(tarea& t, double newempl);
 
 
-// FIN de la PREDECLARACION DEL TAD producto (fin INTERFAZ)
+// FIN de la PREDECLARACION DEL TAD tarea (fin INTERFAZ)
 
-// DECLARACION DEL TAD producto
-struct evento {
-  	friend void crearEvento(string descrip,int prio, evento& e);
-  	friend string descripcion(const evento& e);
-  	friend void cambiarDescripcion( evento& e,string nuevo);
-  	friend int suPrioridad(const evento& e);
-	friend void cambiarPrioridad(evento& e, int pri); 
+// DECLARACION DEL TAD tarea
+struct tarea {
+  	friend void crearTarea(string nom,string descripc,string unidad,double tempEst,tarea& t);
+    friend string nombre(const tarea& t);
+    friend string descripcion(const tarea& t);
+    friend string unidad(const tarea& t);
+    friend double estimacion(const tarea& t);
+    friend double invertido(const tarea& t);
+    friend void cambiarNombre( tarea& t,string newname);
+    friend void cambiarDescripcion(tarea& t,string newdescrip);
+    friend void cambiarUnidad(tarea& t,string newunit);
+    friend bool cambiarTiempoEstimado(tarea& t,double newesti);
+    friend bool cambiarTiempoEmpleado(tarea& t, double newempl);
+  	
   private:  //La estructura se compone de descrip y prio:
-			//-descrip:es una cadena que tendra la información entorno al evento
-			//-prio: es un entero que tendra la prioridad del evento.
+			//-descrip:es una cadena que tendra la información entorno al tarea
+			//-prio: es un entero que tendra la prioridad del tarea.
+    string nombre;
     string descrip;
-    int prio;
+    string unidadTiempo;
+    double tiempoEstimado;
+    double tiempoEmpleado;
 };
 
-
+//nombre, descripción, unidadTiempo, tiempoEstimado, tiempoEmpleado)
 #endif

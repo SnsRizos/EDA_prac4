@@ -1,46 +1,104 @@
 /* Mijayl Mandzyak Melnyk 935521 Hector Manzano Miranda 926029
 */
 #include <iostream>
-#include "evento.hpp"
+#include "tarea.hpp"
 
 using namespace std;
 
-/* Dada una cadena descripcion, un entero prioridad, 
-devuelve un evento e con esos datos. 
+/* Dada una cadena nombre,una cadena descripcion,una cadena unidad,un real tempEst, 
+y una tarea t devuelve un tarea e con esos datos. 
 */
-void crearEvento(string descrip,int prio, evento& e){
-	e.descrip=descrip;
-	e.prio=prio;
+void crearTarea(string nom,string descripc,string unidad,double tempEst,tarea& t){
+	t.nombre=nom;
+	t.descrip=descripc;
+	t.unidadTiempo=unidad;
+	t.tiempoEstimado=tempEst;
+	t.tiempoEmpleado=0.0;
 
 }
 
-/* Dado un evento e, devuelve la cadena correspondiente a la descripción de e. 
+/* Dado un tarea t, devuelve la cadena correspondiente al nombre de t. 
 */
-string descripcion(const evento& e){
+string nombre(const tarea& t){
 
-	return e.descrip;
+	return t.nombre;
 
 }
 
-/* Dado un evento e y una cadena nueva, devuelve el evento e sustituyendo su antigua descripcion por nuevo. 
+/* Dado un tarea t, devuelve la cadena correspondiente a la descripción de t. 
 */
-void cambiarDescripcion( evento& e,string nuevo){
+string descripcion(const tarea& t){
 
-	e.descrip=nuevo;
+	return t.descrip;
 
 }
 
-/* Dado un evento e, devuelve el entero correspondiente a la prioridad del evento e 
+/* Dado un tarea t, devuelve la cadena correspondiente a la unidad de t. 
 */
-int suPrioridad(const evento& e){
+string unidad(const tarea& t){
 
-	return e.prio;
+	return t.unidadTiempo;
+
 }
 
-/* Dado un evento e y una entero pri, devuelve el evento e sustituyendo su antigua prioridad por pri. 
+/* Dado un tarea t, devuelve el real correspondiente al tiempoEstimación de t. 
 */
-void cambiarPrioridad(evento& e, int newpri){
+double estimacion(const tarea& t){
 
-	e.prio=newpri;
+	return t.tiempoEstimado;
 
+}
+
+/* Dado un tarea t, devuelve el real correspondiente al tiempoEmpleado de t. 
+*/
+double invertido(const tarea& t){
+
+	return t.tiempoEmpleado;
+
+}
+
+/* Dado una tarea t y una cadena newname, devuelve la tarea t sustituyendo su antiguo nombre  por newname. 
+*/
+void cambiarNombre( tarea& t,string newname){
+
+	t.nombre=newname;
+
+}
+
+/* Dado una tarea t y una cadena newdescrip, devuelve la tarea t sustituyendo su antigua descripción por newdescrip. 
+*/
+void cambiarDescripcion( tarea& t,string newdescrip){
+
+	t.descrip=newdescrip;
+
+}
+
+/* Dado una tarea t y una cadena newunit, devuelve la tarea t sustituyendo su antigua unidad  por newunit. 
+*/
+void cambiarUnidad( tarea& t,string newunit){
+
+	t.descrip=newunit;
+
+}
+
+/* Dado una tarea t y una real newesti, devuelve la tarea t sustituyendo su antiguo tiempoEstimado  por newesti. 
+*/
+bool cambiarTiempoEstimado( tarea& t,double newesti){
+	if(newesti>0.0){
+		t.tiempoEstimado=newesti;
+		return true;
+	}else{
+		return false;
+	}
+}
+
+/* Dado una tarea t y una real newempl, devuelve la tarea t sustituyendo su antiguo tiempoEstimado  por newesti. 
+*/
+bool cambiarTiempoEmpleado(tarea& t, double newempl){
+	if(newempl>0.0){
+		t.tiempoEmpleado=newempl;
+		return true;
+	}else{
+		return false;
+	}
 }

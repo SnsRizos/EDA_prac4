@@ -35,9 +35,9 @@ int suPrioridad(const evento& e);
 void cambiarPrioridad(evento& e, int pri); 
 
 
-// FIN de la PREDECLARACION DEL TAD producto (fin INTERFAZ)
+// FIN de la PREDECLARACION DEL TAD evento (fin INTERFAZ)
 
-// DECLARACION DEL TAD producto
+// DECLARACION DEL TAD evento
 struct evento {
   	friend void crearEvento(string descrip,int prio, evento& e);
   	friend string descripcion(const evento& e);
