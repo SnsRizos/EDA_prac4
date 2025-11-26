@@ -291,14 +291,92 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 			cin >> ident;
 			char cambio;
 			if(existe(ident,colcec)){
-				"Nuevo tiempo estimado: "
+				cout << "Nuevo tiempo estimado: ";
+				cin >> esti;
+				cout << "Nuevo tiempo empleado: ";
+				cin >> emple;
+				if(cambiarTiempoEstimado(t, esti) && ){
+					actualizarVal(colec, ident, tarea);
+				}
+				else{
+					cout << "NO SE HAN PODIDO MODIFICAR LOS TIEMPOS"
+				}
+				cout << "SI QUIERE CAMBIAR EL NOMBRE TECLEE 'Y' (pulsar cualquier otra tecla si no)";
+				if(cambio=='Y'){
+					cout << "Escriba el nuevo nombre: "
+					cin >> nombre;
+					if(cambiarNombre(t, nombre)==false){
+						"NO SE HA PODIDO CAMBIAR\n"
+					}
+				}
+				cout << "SI QUIERE CAMBIAR LA DESCRIPCIÓN TECLEE 'Y' (pulsar cualquier otra tecla si no)";
+				if(cambio=='Y'){
+					cout << "Escriba la nueva descripción: "
+					cin >> desc;
+					if(cambiarDescripcion(t, desd)==false){
+						"NO SE HA PODIDO CAMBIAR\n"
+					}
+				}
+				cout << "SI QUIERE CAMBIAR LA UNIDAD DE TIEMPO TECLEE 'Y' (pulsar cualquier otra tecla si no)";
+				if(cambio=='Y'){
+					cout << "Escriba la nueva unidad de tiempo: "
+					cin >> uni;
+					if(cambiarDescripcion(t, uni)==false){
+						"NO SE HA PODIDO CAMBIAR\n"
+					}
+				}
+				
 			}
 			else{
 				cout << "NO EXISTE TAREA CON ESE IDENTIFICADOR\n";
 			}
 		}
 		else if(inst=="LD"){//info tarea
+			cout <<"Identificador de la tarea: ";
+			cin >> ident;
+			int numDepends;
+			bool depende;
+			string super;
+			if(obtenerDatos(ident,colec,t,super,numDepends,depende)){
+				nombre=nombre(t);
+				desc=descripcion(t);
+				uni=unidad(t);
+				esti=estimacion(t);
+				emple=invertido(t);
 
+				//cambiar para poner nuevo para
+				if(!depende){
+					cout <<"[ "<<ident<<" --- "<<numDepends<<" ] --- "<<info<<" --- ( "<<prioridad<<" ) ****"<<endl;
+				}else{
+					cout <<"[ "<<ident<<" -de-> "<<super<<" ;;; "<<numDepends<<" ] --- "<<info<<" --- ( "<<prioridad<<" ) ****"<<endl;
+				}
+				iniciarIterador(colec);
+				int puesto= 1;
+				string iddep;
+
+				while(existeSiguiente(colec)){ // Si eso modificar con puesto menor cuando vaya LD porque si no hay dependientes de ident recorre de todas maneras la colec
+					
+					if(siguienteSuperior(colec,super)){
+							
+							if(super == ident){
+								siguienteIdent(colec,iddep);
+								siguienteVal(colec,v);
+								info=descripcion(v);
+								prioridad=suPrioridad(v);
+								numDepends=siguienteNumDependientes(colec);
+								s <<"["<<puesto<<" -> "<<iddep<<" -de-> "<<ident<<" ;;; "<<numDepends<<" ] --- "<<info<<" --- ( "<<prioridad<<" ) ;;;;"<<endl;
+								puesto++;
+							}
+							
+
+					}
+					avanza(colec);
+
+				}
+				s <<"****FINAL dependientes -de-> "<<ident<<endl;
+			}else{
+				s <<"****DESCONOCIDO"<<endl;
+			}
 		}
 		else if(inst=="B"){	//borrar
 
