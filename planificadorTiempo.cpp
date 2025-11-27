@@ -7,7 +7,7 @@
 
 using namespace std;
 
-
+/*
 void leerInstrucciones(colecInterdep<string,evento>colec){
 	ifstream f;
 	f.open("entrada.txt");
@@ -231,7 +231,7 @@ void leerInstrucciones(colecInterdep<string,evento>colec){
 			cerr << "No ha podido leer el fichero \"" << "entrada.txt" << "\"." <<endl;
 	}
 
-}
+}*/
 
 
 void instruccion(const string inst, colecInterdep<string,tarea>colec){
@@ -251,11 +251,11 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 			cin >> uni;
 			crearTarea(nombre, desc, uni, t);
 			tam = tamanyo(colec);
-			anyadirIndependiente(colec,id,);
+			anyadirIndependiente(colec,ident,t);
 			if(tam==tamanyo(colec)){
-				cout << "NO INTRODUCIDA, YA EXISTE UNA TAREA CON ESE IDENTIFICADOR"
+				cout << "NO INTRODUCIDA, YA EXISTE UNA TAREA CON ESE IDENTIFICADOR";
 			}
-			cout << "INTRODUCIDA\n"
+			cout << "INTRODUCIDA\n";
 		}
 		else if(inst=="D"){	//hacer dep
 			string ident2;
@@ -277,13 +277,13 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 			bool esDep;
 			if(existeDepOIndep(ident,colec,esDep)){
 				if(!esDep){
-					s <<"YA ERA INDepend.: ";
+					cout <<"YA ERA INDepend.: ";
 				}else{
 					hacerIndependiente(colec,ident);
-					s <<"INDEPENDIZADO: ";
+					cout <<"INDEPENDIZADO: ";
 				}
 			}else{
-					s <<"NO INDEPENDIZADO: ";
+					cout <<"NO INDEPENDIZADO: ";
 			} 
 		}
 		else if(inst=="C"){	//cambiar info t
@@ -299,30 +299,33 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 					actualizarVal(colec, ident, tarea);
 				}
 				else{
-					cout << "NO SE HAN PODIDO MODIFICAR LOS TIEMPOS"
+					cout << "NO SE HAN PODIDO MODIFICAR LOS TIEMPOS";
 				}
 				cout << "SI QUIERE CAMBIAR EL NOMBRE TECLEE 'Y' (pulsar cualquier otra tecla si no)";
+				cin>>cambio;
 				if(cambio=='Y'){
-					cout << "Escriba el nuevo nombre: "
+					cout << "Escriba el nuevo nombre: ";
 					cin >> nombre;
 					if(cambiarNombre(t, nombre)==false){
-						"NO SE HA PODIDO CAMBIAR\n"
+						"NO SE HA PODIDO CAMBIAR\n";
 					}
 				}
 				cout << "SI QUIERE CAMBIAR LA DESCRIPCIÓN TECLEE 'Y' (pulsar cualquier otra tecla si no)";
+				cin>>cambio;
 				if(cambio=='Y'){
-					cout << "Escriba la nueva descripción: "
+					cout << "Escriba la nueva descripción: ";
 					cin >> desc;
 					if(cambiarDescripcion(t, desd)==false){
-						"NO SE HA PODIDO CAMBIAR\n"
+						"NO SE HA PODIDO CAMBIAR\n";
 					}
 				}
 				cout << "SI QUIERE CAMBIAR LA UNIDAD DE TIEMPO TECLEE 'Y' (pulsar cualquier otra tecla si no)";
+				cin>>cambio;
 				if(cambio=='Y'){
-					cout << "Escriba la nueva unidad de tiempo: "
+					cout << "Escriba la nueva unidad de tiempo: ";
 					cin >> uni;
 					if(cambiarDescripcion(t, uni)==false){
-						"NO SE HA PODIDO CAMBIAR\n"
+						cout<<"NO SE HA PODIDO CAMBIAR\n";
 					}
 				}
 				
@@ -344,11 +347,10 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 				esti=estimacion(t);
 				emple=invertido(t);
 
-				//cambiar para poner nuevo para
-				if(!depende){
-					cout <<"[ "<<ident<<" --- "<<numDepends<<" ] --- "<<info<<" --- ( "<<prioridad<<" ) ****"<<endl;
+				if(depende==true){				
+					cout <<"[ "<<ident<<" -de-> "<<super<<" ;;; "<<numDepends<<" ] --- "<<nombre<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;
 				}else{
-					cout <<"[ "<<ident<<" -de-> "<<super<<" ;;; "<<numDepends<<" ] --- "<<info<<" --- ( "<<prioridad<<" ) ****"<<endl;
+					cout <<"[ "<<ident<<" --- "<<numDepends<<" ]--- "<<nombre<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;		
 				}
 				iniciarIterador(colec);
 				int puesto= 1;
@@ -360,11 +362,14 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 							
 							if(super == ident){
 								siguienteIdent(colec,iddep);
-								siguienteVal(colec,v);
-								info=descripcion(v);
-								prioridad=suPrioridad(v);
+								siguienteVal(colec,t);
+								nombre=nombre(t);
+								desc=descripcion(t);
+								uni=unidad(t);
+								esti=estimacion(t);
+								emple=invertido(t);
 								numDepends=siguienteNumDependientes(colec);
-								s <<"["<<puesto<<" -> "<<iddep<<" -de-> "<<ident<<" ;;; "<<numDepends<<" ] --- "<<info<<" --- ( "<<prioridad<<" ) ;;;;"<<endl;
+								cout <<"["<<puesto<<" -> "<<iddep<<" -de-> "<<ident<<" ;;; "<<numDepends<<" ]--- "<<nombre<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;
 								puesto++;
 							}
 							
@@ -373,16 +378,56 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 					avanza(colec);
 
 				}
-				s <<"****FINAL dependientes -de-> "<<ident<<endl;
+				cout <<"****FINAL dependientes -de-> "<<ident<<endl;
 			}else{
-				s <<"****DESCONOCIDO"<<endl;
+				cout <<"****DESCONOCIDO"<<endl;
 			}
 		}
 		else if(inst=="B"){	//borrar
-
+			cout<<"Identificador de la tarea: \n";
+			cin>>ident;
+			
+			int tam=tamanyo(colec);
+			borrar(ident,colec);
+			if(tam != tamanyo(colec)){
+				cout <<"BORRADO: ";
+			}
+			else{
+				cout <<"NO BORRADO: ";
+			} 
+			cout <<ident<<endl;
 		}
 		else if(inst=="LT"){//listar colección
+			cout <<"-----LISTADO: "<<tamanyo(colec)<<endl;
+				
+				if(tamanyo(colec)>0){
+					iniciarIterador(colec);
+					
+					while(existeSiguiente(colec)){ // Si eso modificar con puesto menor cuando vaya LD porque si no hay dependientes de ident recorre de todas maneras la colec
+						
+						int numDepends;
+						bool depende;
+						string super;
+						if(obtenerDatos(ident,colec,t,super,numDepends,depende)){
+							nombre=nombre(t);
+							desc=descripcion(t);
+							uni=unidad(t);
+							esti=estimacion(t);
+							emple=invertido(t);
 
+						if(depende==true){
+									
+							cout <<"[ "<<ident<<" -de-> "<<super<<" ;;; "<<numDepends<<" ] --- "<<nombre<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;
+
+						}else{
+							cout <<"[ "<<ident<<" --- "<<numDepends<<" ]--- "<<nombre<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;		
+						}
+						avanza(colec);
+
+					}
+				}
+				cout <<"-----"<<endl;
+			}
 		}
 		else{
 			cout << "Instrucción no reconocida\n";
