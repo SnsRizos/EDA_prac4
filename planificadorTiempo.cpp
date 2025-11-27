@@ -235,7 +235,7 @@ void leerInstrucciones(colecInterdep<string,evento>colec){
 
 
 void instruccion(const string inst, colecInterdep<string,tarea>colec){
-	string ident, nombre, desc, uni;
+	string ident, name, desc, uni;
 	double esti, emple;
 	int tam;
 	tarea t;
@@ -244,12 +244,14 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 			cout << "Identificador de la tarea: ";
 			cin >> ident;
 			cout << "Nombre de la tarea: ";
-			cin >> nombre;
+			cin >> name;
 			cout << "Descripción de la tarea: ";
 			cin >> desc;
 			cout << "Unidad de tiempo de la tarea: ";
 			cin >> uni;
-			crearTarea(nombre, desc, uni, t);
+			cout << "Tiempo estimado de la tarea";
+			cin >>esti;
+			crearTarea(name, desc, uni,esti,t);
 			tam = tamanyo(colec);
 			anyadirIndependiente(colec,ident,t);
 			if(tam==tamanyo(colec)){
@@ -290,13 +292,13 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 			cout << "Identificador de la tarea: ";
 			cin >> ident;
 			char cambio;
-			if(existe(ident,colcec)){
+			if(existe(ident,colec)){
 				cout << "Nuevo tiempo estimado: ";
 				cin >> esti;
 				cout << "Nuevo tiempo empleado: ";
 				cin >> emple;
-				if(cambiarTiempoEstimado(t, esti) && ){
-					actualizarVal(colec, ident, tarea);
+				if(cambiarTiempoEstimado(t, esti) && cambiarTiempoEmpleado(t,emple)){
+					actualizarVal(colec, ident, t);
 				}
 				else{
 					cout << "NO SE HAN PODIDO MODIFICAR LOS TIEMPOS";
@@ -305,28 +307,22 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 				cin>>cambio;
 				if(cambio=='Y'){
 					cout << "Escriba el nuevo nombre: ";
-					cin >> nombre;
-					if(cambiarNombre(t, nombre)==false){
-						"NO SE HA PODIDO CAMBIAR\n";
-					}
+					cin >> name;
+					
 				}
 				cout << "SI QUIERE CAMBIAR LA DESCRIPCIÓN TECLEE 'Y' (pulsar cualquier otra tecla si no)";
 				cin>>cambio;
 				if(cambio=='Y'){
 					cout << "Escriba la nueva descripción: ";
 					cin >> desc;
-					if(cambiarDescripcion(t, desd)==false){
-						"NO SE HA PODIDO CAMBIAR\n";
-					}
+					
 				}
 				cout << "SI QUIERE CAMBIAR LA UNIDAD DE TIEMPO TECLEE 'Y' (pulsar cualquier otra tecla si no)";
 				cin>>cambio;
 				if(cambio=='Y'){
 					cout << "Escriba la nueva unidad de tiempo: ";
 					cin >> uni;
-					if(cambiarDescripcion(t, uni)==false){
-						cout<<"NO SE HA PODIDO CAMBIAR\n";
-					}
+					
 				}
 				
 			}
@@ -341,16 +337,16 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 			bool depende;
 			string super;
 			if(obtenerDatos(ident,colec,t,super,numDepends,depende)){
-				nombre=nombre(t);
+				name=nombre(t);
 				desc=descripcion(t);
 				uni=unidad(t);
 				esti=estimacion(t);
 				emple=invertido(t);
 
 				if(depende==true){				
-					cout <<"[ "<<ident<<" -de-> "<<super<<" ;;; "<<numDepends<<" ] --- "<<nombre<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;
+					cout <<"[ "<<ident<<" -de-> "<<super<<" ;;; "<<numDepends<<" ] --- "<<name<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;
 				}else{
-					cout <<"[ "<<ident<<" --- "<<numDepends<<" ]--- "<<nombre<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;		
+					cout <<"[ "<<ident<<" --- "<<numDepends<<" ]--- "<<name<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;		
 				}
 				iniciarIterador(colec);
 				int puesto= 1;
@@ -363,13 +359,13 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 							if(super == ident){
 								siguienteIdent(colec,iddep);
 								siguienteVal(colec,t);
-								nombre=nombre(t);
+								name=nombre(t);
 								desc=descripcion(t);
 								uni=unidad(t);
 								esti=estimacion(t);
 								emple=invertido(t);
 								numDepends=siguienteNumDependientes(colec);
-								cout <<"["<<puesto<<" -> "<<iddep<<" -de-> "<<ident<<" ;;; "<<numDepends<<" ]--- "<<nombre<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;
+								cout <<"["<<puesto<<" -> "<<iddep<<" -de-> "<<ident<<" ;;; "<<numDepends<<" ]--- "<<name<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;
 								puesto++;
 							}
 							
@@ -409,7 +405,7 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 						bool depende;
 						string super;
 						if(obtenerDatos(ident,colec,t,super,numDepends,depende)){
-							nombre=nombre(t);
+							name= nombre(t);
 							desc=descripcion(t);
 							uni=unidad(t);
 							esti=estimacion(t);
@@ -417,10 +413,10 @@ void instruccion(const string inst, colecInterdep<string,tarea>colec){
 
 						if(depende==true){
 									
-							cout <<"[ "<<ident<<" -de-> "<<super<<" ;;; "<<numDepends<<" ] --- "<<nombre<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;
+							cout <<"[ "<<ident<<" -de-> "<<super<<" ;;; "<<numDepends<<" ] --- "<<name<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;
 
 						}else{
-							cout <<"[ "<<ident<<" --- "<<numDepends<<" ]--- "<<nombre<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;		
+							cout <<"[ "<<ident<<" --- "<<numDepends<<" ]--- "<<name<<" --- ( "<<desc<<" )"<<" --- ( "<<uni<<" )"<<" --- ( "<<emple<<" )"<<endl;		
 						}
 						avanza(colec);
 
