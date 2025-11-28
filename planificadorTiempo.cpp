@@ -437,8 +437,8 @@ int main(){
 	string instruc;
 	cout << "A: anyadir nueva tarea\nD: Hacer que tarea1 pasa a ser prerrequisito directo de tarea2\n"
 				<< "I: Hacer que tarea no sea prerrequisito de nadie\nC: Cambiar informacion de una tarea\n"
-				<< "LD: Mostrar información de una tarea y de todas las que son prerrequisito de esta\n"
-				<< "B: Borrar tarea\nLT: Mostrar colección\nFIN: terminar proceso\n";
+				<< "LD: Mostrar informacion de una tarea y de todas las que son prerrequisito de esta\n"
+				<< "B: Borrar tarea\nLT: Mostrar coleccion\nFIN: terminar proceso\n";
 	cin >> instruc;
 	instruccion(instruc,bolsa);
 }
